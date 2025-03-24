@@ -1,0 +1,25 @@
+/* Ocultar todos por defecto */
+.ParaPc, .ParaTablet, .ParaMovil {
+    display: none;
+}
+
+/* Pantallas grandes (PC) */
+@media (min-width: 1025px) { 
+    .ParaPc {
+        display: block;
+    }
+}
+
+/* Pantallas medianas (Tablets) */
+@media (min-width: 769px) and (max-width: 1024px) { 
+    .ParaTablet {
+        display: block;
+    }
+}
+
+/* Pantallas pequeñas (Móviles) */
+@media (max-width: 768px) { 
+    .ParaMovil {
+        display: block;
+    }
+}
