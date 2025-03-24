@@ -23,3 +23,61 @@
         display: block;
     }
 }
+
+/* Menú Tablets*/
+
+/* Estilos base para el contenedor de Tablet */
+.ParaTablet {
+    width: 768px;
+    height: 1024px;
+    background-color: #16213e;
+    margin: 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Título del juego */
+#gameTitle {
+    color: #4cc9f0;
+    font-size: 4rem;
+    font-weight: bold;
+    text-shadow: 0 0 10px rgba(76, 201, 240, 0.7);
+}
+
+/* Texto "Selecciona una opción" */
+#optionMenu {
+    border: 3px solid #4cc9f0; /* Borde azul del mismo color que los botones */
+    border-radius: 15px; /* Esquinas redondeadas */
+    padding: 30px; /* Espacio interno */
+    margin: 0 auto; /* Centrado horizontal */
+    max-width: 600px; /* Ancho máximo opcional */
+    background-color: rgba(22, 33, 62, 0.8); /* Fondo semitransparente */
+    box-shadow: 0 0 20px rgba(76, 201, 240, 0.5); /* Sombra azul para efecto glow */
+}
+
+#selectText {
+    margin-bottom: 30px;
+    color: #ffffff;
+    font-size: 1.5rem;
+}
+
+/* Contenedor de botones */
+#buttonContainer {
+    gap: 30px;
+    align-items: center;
+}
+
+/* Botones del menú */
+.option-button {
+    width: 300px;
+    padding: 15px;
+    background-color: #4cc9f0 !important;
+    border: none !important;
+    font-size: 1.5rem;
+    transition: transform 0.2s;
+}
+
+.option-button:hover {
+    transform: scale(1.05);
+    background-color: #3aa8d8 !important;
+}
