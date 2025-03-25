@@ -32,22 +32,31 @@
 
     </div>
     <!-- Contenedor específico para Tablet (768x1024) -->
-    <div class="ParaTablet d-flex">
-        <div id="menuTablet" class="container text-center py-5">
-            <!-- Título del juego -->
-            <h1 id="gameTitle" class="mb-5">Mythic Warships</h1>
-            
-            <!-- Opciones del menú -->
-            <div id="optionMenu" class="container">
-                <p id="selectText">Selecciona una opción:</p>
-                <div id="buttonContainer" class="d-flex flex-column gap-3">
-                    <button class="option-button btn btn-primary">Nueva Partida</button>
-                    <button class="option-button btn btn-primary">Rankings</button>
-                    <button class="option-button btn btn-primary">Créditos</button>
+    <div id="ParaTablet" class="container-fluid">
+        <div id="menuPrincipal" class="row min-vh-100">
+            <div id="selectionMenu" class="col-md-8 col-lg-6">
+                <!-- Título del juego -->
+                <h1 id="gameTitle" class="text-primary mb-5">Mythic Warships</h1>
+                
+                <!-- Contenedor del menú con borde -->
+                <div id="optionMenu" class="border border-primary rounded-lg p-4 bg-secondary mx-auto">
+                    <p id="selectText" class="lead mb-4">Selecciona una opción:</p>
+                    
+                    <!-- Botones del menú -->
+                    <div id="buttonMenu" class="container">
+                        <div>
+                            <button class="btn btn-primary btn-lg mb-3">Nueva Partida</button>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-lg mb-3">Rankings</button>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary btn-lg">Créditos</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <div class="ParaMovil">
         
