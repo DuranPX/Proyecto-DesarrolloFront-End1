@@ -139,6 +139,29 @@
 @media (min-width: 769px) and (max-width: 1024px) {
     .ParaTablet {
         display: block;
+        background-color: #16213e;
+        /* Menú Tablets*/       
+        #menuPrincipal {
+            justify-content: center;
+            align-items: center;
+        }
+        
+        #selectionMenu {
+            text-align: center;
+        }
+        
+        #gameTitle {
+            font-weight: bold;
+            display: 3;
+        }
+        
+        #optionMenu {
+            max-width: 500px;
+        }
+        
+        #selectText {
+            color: white;
+        }
     }
 }
 
