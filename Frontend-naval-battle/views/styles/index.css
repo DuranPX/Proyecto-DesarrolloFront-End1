@@ -13,19 +13,35 @@
     }
 
     body {
-        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 12, 36, 0.39)),
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 12, 36, 0.233)),
             url('../assets/9c9100b43b20138280ff15dd7e40d5da.gif');
         background-size: cover;
         background-position: center;
         height: 100vh;
+        backdrop-filter: blur(2px);
+    }
+
+    @font-face {
+        font-family: 'Stella Lumina';
+        src: url('../assets/STELLALUMINA-W4BP.TTF') format('truetype');
     }
 
 
-    #pc-menu {
+    .GameTitle {
+        font-family: 'Stella Lumina', sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 45vh;
+        color: #052f57c5;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .pc-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 0vh;
     }
 
     .items-menu {
@@ -72,12 +88,14 @@
     #textInicio:hover,
     #textRanking:hover,
     #textCredit:hover {
+        cursor: pointer;
         background: rgba(255, 255, 255, 0);
         backdrop-filter: blur(10px);
         border-radius: 15px;
     }
 
     .banderaImg {
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -101,7 +119,6 @@
     #btnMenu {
         align-items: center;
         padding: 5px;
-        border-radius: 5px;
         background-color: rgba(255, 255, 255, 0.61);
         color: rgb(0, 0, 0);
         margin-bottom: 10px;
@@ -140,25 +157,26 @@
     .ParaTablet {
         display: block;
         background-color: #16213e;
-        /* Menú Tablets*/       
+
+        /* Menú Tablets*/
         #menuPrincipal {
             justify-content: center;
             align-items: center;
         }
-        
+
         #selectionMenu {
             text-align: center;
         }
-        
+
         #gameTitle {
             font-weight: bold;
             display: 3;
         }
-        
+
         #optionMenu {
             max-width: 500px;
         }
-        
+
         #selectText {
             color: white;
         }
