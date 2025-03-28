@@ -21,43 +21,87 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.min.js"
         integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+"
         crossorigin="anonymous"></script>
-    <!-- Scripts de Bootstrap 4 -->
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>Mythic WarShips</title>
 </head>
 
 <body class="bodyClass">
-    <div class="ParaPc">
-
+    <div class="container-fluid ParaPc" id="pc-menu">
+        <div class="items-menu">
+            <div class="container-fluid" id="content-Base1">
+                <div class="row justify-content-center" id="textosElement">
+                    <div class="col-4 text-center" id="textInicio"><a class="inicio-text">Inicio</a></div>
+                    <div class="col-4 text-center" id="textRanking"><a class="ranking-text">Ranking</a></div>
+                    <div class="col-4 text-center" id="textCredit"><a class="creditos-text">Créditos</a></div>
+                </div>
+            </div>
+            <hr class="hr-item">
+            <div class="container-fluid" id="content-Base2">
+                <div class="row">
+                    <div class="col-10">
+                        <input type="text" class="form-control" placeholder="Ingrese Su Nickname" aria-label="Username"
+                            id="input-login">
+                    </div>
+                    <div class="col-1">
+                        <div class="banderaImg"><img src="" alt="Bandera"></div>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="btn btn-" id="btnMenu">Iniciar Juego</button>
+        </div>
     </div>
-    <div class="ParaTablet" class="container-fluid">
-        <div id="menuPrincipal" class="row min-vh-100">
-            <div id="selectionMenu" class="col-md-8 col-lg-6">
-                <!-- Título del juego -->
-                <h1 id="gameTitle" class="text-primary mb-5">Mythic Warships</h1>
-                
+    <div id="tabletMenu" class="container-fluid ParaTablet">
+        <section class="Section-menuTablet">
+            <!-- Título del juego -->
+            <div id="gameTitle" class="col-4">
+                <h1>Mythic Warships</h1>
+            </div>
+            <div id="selectionMenu" class="col-8">
                 <!-- Contenedor del menú con borde -->
-                <div id="optionMenu" class="border border-primary rounded-lg p-4 bg-secondary mx-auto">
-                    <p id="selectText" class="lead mb-4">Selecciona una opción:</p>
-                    
+                <div id="optionMenu" class="container-fluid">
+                    <div id="selectText" class="col-3">
+                        <h5>Selecciona una opción:</h5>                    
+                    </div>
                     <!-- Botones del menú -->
-                    <div id="buttonMenu" class="container">
-                        <div>
-                            <button class="btn btn-primary btn-lg mb-3">Nueva Partida</button>
+                    <div id="buttonMenu" class="container-fluid col-9">
+                        <div class="col-4">
+                            <button type="button" class="btnsInicioTablet" id="textNuevaPartida_tablet">Nueva Partida</button>
                         </div>
-                        <div>
-                            <button class="btn btn-primary btn-lg mb-3">Rankings</button>
+                        <div class="col-4">
+                            <button type="button" class="btnsInicioTablet" id="textRankings_tablet">Rankings</button>
                         </div>
-                        <div>
-                            <button class="btn btn-primary btn-lg">Créditos</button>
+                        <div class="col-4">
+                            <button type="button" class="btnsInicioTablet" id="textCredits_tablet">Créditos</button>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
+        <section class="Section-creditsTablet">
+            <div class="container-fluid">
+                <div class="container">
+                    <div>
+                        <h3>Autores</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="container col-6">
+                        <h3>Gráficos</h3>
+                    </div>
+                    <div class="container col-6">
+                        <h3>Música y Sonido</h3>
+                    </div>
+                </div>
+                <div class="container">
+                    <div>
+                        <h3>Agradecimientos</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
     <div class="ParaMovil">
-        
+
     </div>
 </body>
 
