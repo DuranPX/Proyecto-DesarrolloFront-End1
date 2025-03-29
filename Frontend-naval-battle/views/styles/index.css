@@ -13,19 +13,35 @@
     }
 
     body {
-        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 12, 36, 0.39)),
+        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 12, 36, 0.233)),
             url('../assets/9c9100b43b20138280ff15dd7e40d5da.gif');
         background-size: cover;
         background-position: center;
         height: 100vh;
+        backdrop-filter: blur(2px);
+    }
+
+    @font-face {
+        font-family: 'Stella Lumina';
+        src: url('../assets/STELLALUMINA-W4BP.TTF') format('truetype');
     }
 
 
-    #pc-menu {
+    .GameTitle {
+        font-family: 'Stella Lumina', sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 45vh;
+        color: #052f57c5;
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    .pc-menu {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 0vh;
     }
 
     .items-menu {
@@ -72,12 +88,14 @@
     #textInicio:hover,
     #textRanking:hover,
     #textCredit:hover {
+        cursor: pointer;
         background: rgba(255, 255, 255, 0);
         backdrop-filter: blur(10px);
         border-radius: 15px;
     }
 
     .banderaImg {
+        cursor: pointer;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -101,7 +119,6 @@
     #btnMenu {
         align-items: center;
         padding: 5px;
-        border-radius: 5px;
         background-color: rgba(255, 255, 255, 0.61);
         color: rgb(0, 0, 0);
         margin-bottom: 10px;
@@ -171,8 +188,9 @@
         padding: 30px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         text-align: center;
+        margin: 0 auto;
         max-width: 400px;
-        width: 90%;
+        width: auto;
         margin-bottom: 100px;
     }
         
@@ -188,7 +206,7 @@
     }
 
     #optionMenu {
-        justify-items: center;
+        margin-left: 0;
         width: 100%;
     }
         
@@ -198,7 +216,7 @@
         width: 100%;
     }
 
-    #buttonMenu {
+    #buttonMenu { 
         width: 150%;
         margin-left: 68px;    
     }
@@ -222,6 +240,122 @@
         border-color: rgb(95, 158, 160);
         background-color: rgba(22, 57, 63, 0.486);
         transform: translateY(-5px);
+    }
+
+    /* Página de Creditos*/
+    #Section-creditsTablet {
+        display: none;
+        padding: 20px;
+        backdrop-filter: blur(15px);
+    }
+
+    #Section-creditsTablet p {
+        color: black;
+    }
+
+    .tabletCreditsTitles {
+        font-weight: bold;
+        font-family: 'Stella Lumina', sans-serif;
+        color: darkslategray;
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        justify-items: center;
+        margin-bottom: 15px;
+    }
+
+    #container1CreditsTablet {
+        text-align: center;
+    }
+    
+    #container2CreditsTablet {
+        text-align: center;
+        margin: 60px;
+    }
+
+    #container2-1CreditsTablet {
+        justify-items: center;
+        padding: 20px;
+    }
+    
+    #container2-2CreditsTablet {
+        justify-items: center;
+    }
+
+    #container3CreditsTablet {
+        text-align: center;
+    }
+
+    #container4CreditsTablet {
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .btnVolverTablet {
+        padding: 12px 20px;
+        justify-content: center;
+        border-radius: 15px;
+        background-color: rgba(11, 66, 117, 0.61);
+        margin-bottom: 15px;
+        max-width: 300px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        border-color: #052f57c5;
+        font-size: 16px;
+        cursor: pointer;
+        transition: all 0.4s ease;
+    }
+
+    #volverRankings_tablet {
+        margin-top: 10px;
+        align-items: center;
+    }
+    
+    .btnVolverTablet:hover {
+        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+        color: rgb(255, 255, 255);
+        border-color: rgb(95, 158, 160);
+        background-color: rgba(22, 57, 63, 0.486);
+        transform: translateY(-5px);
+    }
+
+    /* Página de Rankings*/
+    #Section-rankingsTablet {
+        display: none;
+    }
+
+    #rankingsTitle {
+        font-family: 'Stella Lumina', sans-serif;
+        color: #052f57c5;
+        justify-items: center;
+    }
+
+    #rankingsMenu {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(15px);
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+        width: 100%;
+        justify-items: center;
+        min-height: 150px;
+    }
+
+    #rankingsContainer {
+        justify-content: center;
+    }
+
+    #rankingsTable {
+        border-radius: 10px;
+        border-color: aliceblue;
+        border: 5px;
+        justify-items: center;
+    }
+
+    #rankingsTitles {
+        background-color: rgba(56, 94, 95, 0.8);
+    }
+
+    .rankingsTiles {
+        background-color: rgb(95, 158, 160);
+        border-color: aliceblue;
+        border: 5px;
     }
 }
 
