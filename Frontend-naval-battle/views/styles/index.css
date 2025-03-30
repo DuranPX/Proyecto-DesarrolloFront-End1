@@ -51,14 +51,14 @@
         padding: 30px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         text-align: center;
-        max-width: 400px;
+        max-width: 600px;
         width: 100%;
     }
 
     #content-Base1 {
         margin-inline: auto;
         margin-bottom: 20px;
-        max-width: 90%;
+        max-width: 100%;
     }
 
 
@@ -76,14 +76,11 @@
         font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     }
 
-
-
     .inicio-text:hover,
     .ranking-text:hover,
     .creditos-text:hover {
         color: rgba(255, 255, 255, 0.774);
     }
-
 
     #textInicio:hover,
     #textRanking:hover,
@@ -314,14 +311,74 @@
         background-color: red;
     }
 
-    #contenedortablero-pc{
+    #contenedortablero-pc {
         justify-items: center;
     }
-    
-    #btnBatalla{
+
+    #btnBatalla {
         margin-top: 10px;
     }
 
+    /*INFORMACION IMPORTANTE: relacionado con flagsResponse.js(no modificar- ajustar a sus pantallas)*/
+
+
+    #countryList {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: 300px;
+        overflow-y: auto;
+    }
+
+    #countryList li {
+        flex: 1 1 50%;
+        list-style: none;
+    }
+
+    .dropdown-menu {
+        background: rgba(0, 0, 0, 0) !important;
+        backdrop-filter: blur(50px);
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    }
+    .dropdown-menu li:hover {
+        background-color: rgba(240, 248, 255, 0.199);
+    }
+
+    ::-webkit-scrollbar {
+        width: 10px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.795);
+        border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+        background: rgb(255, 255, 255);
+    }
+    
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+    
+    
+
+    .selected-country {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(5px);
+        border-radius: 15px;
+        max-width: 200px;
+    }
+    
+    .flag-img-large {
+        width: 50px;
+        height: auto;
+        border-radius: 5px;
+    }
+    
 }
 
 /* Pantallas medianas (Tablets) */
@@ -330,6 +387,7 @@
         font-family: 'Stella Lumina';
         src: url('../assets/STELLALUMINA-W4BP.TTF') format('truetype');
     }
+
     .ParaTablet {
         display: flex;
         justify-content: center;
@@ -342,7 +400,7 @@
         margin: 0;
         padding: 0;
     }
-    
+
     /* Menú Tablets*/
     #tabletMenu {
         display: flex;
@@ -365,7 +423,7 @@
         width: auto;
         margin-bottom: 100px;
     }
-        
+
     #gameTitle {
         font-weight: bold;
         font-family: 'Stella Lumina', sans-serif;
@@ -381,16 +439,16 @@
         margin-left: 0;
         width: 100%;
     }
-        
+
     #selectText {
         color: rgba(56, 94, 95, 0.8);
         margin-bottom: 20px;
         width: 100%;
     }
 
-    #buttonMenu { 
+    #buttonMenu {
         width: 150%;
-        margin-left: 68px;    
+        margin-left: 68px;
     }
 
     .btnsInicioTablet {
@@ -437,7 +495,7 @@
     #container1CreditsTablet {
         text-align: center;
     }
-    
+
     #container2CreditsTablet {
         text-align: center;
         margin: 60px;
@@ -447,7 +505,7 @@
         justify-items: center;
         padding: 20px;
     }
-    
+
     #container2-2CreditsTablet {
         justify-items: center;
     }
@@ -479,7 +537,7 @@
         margin-top: 10px;
         align-items: center;
     }
-    
+
     .btnVolverTablet:hover {
         box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
         color: rgb(255, 255, 255);

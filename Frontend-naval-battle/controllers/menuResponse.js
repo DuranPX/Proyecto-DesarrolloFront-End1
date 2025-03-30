@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Mostrar la sección seleccionada
-        let seccionMostrada = document.getElementById("Section-rankingsTablet");
-        if (seccionMostrada) {
-            seccionMostrada.style.display = "block";
+        let seccionMostrada_Tablet = document.getElementById("Section-rankingsTablet");
+        if (seccionMostrada_Tablet) {
+            seccionMostrada_Tablet.style.display = "block";
         }
     }
     

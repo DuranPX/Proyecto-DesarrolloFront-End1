@@ -7,12 +7,31 @@ app = Flask(__name__)
 CORS(app)
 
 DB_FILE = "database/scores.json"
-COUNTRY_FILE = "database/countries.json"
+COUNTRY_FILE = os.path.join(os.path.dirname(__file__), "database", "countries.json")
 
 def load_countries():
+    print("Verificando si el archivo existe...")
+    
     if os.path.exists(COUNTRY_FILE):
+        print(f"El archivo {COUNTRY_FILE} existe.")
+        
         with open(COUNTRY_FILE, "r", encoding="utf-8") as file:
-            return json.load(file)
+            data = file.read()
+            
+            if not data.strip():  # Si está vacío
+                print("El archivo está vacío.")
+                return []
+            
+            try:
+                countries = json.loads(data)  # Intentar parsear JSON
+                print("Datos cargados correctamente:", countries)
+                return countries
+            except json.JSONDecodeError as e:
+                print("Error al parsear JSON:", e)
+                return []
+    else:
+        print(f"El archivo {COUNTRY_FILE} NO existe.")
+    
     return []
 
 def load_scores():
