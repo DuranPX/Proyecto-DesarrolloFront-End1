@@ -1,11 +1,7 @@
-class Acorazado extends Barco {
-    constructor(nombre, tamaño, posicion) {
-        this.nombre = nombre;
-        this.tamaño = tamaño;
-        this.posicion = posicion;
-    }
+import { Barco } from "./Barco.js";
 
-    estaHundido() {
-        
+export class Acorazado extends Barco {
+    constructor() {
+        super("Acorazado", 4);
     }
 }

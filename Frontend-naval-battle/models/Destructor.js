@@ -1,11 +1,7 @@
-class Destructor extends Barco {
-    constructor(nombre, tamaño, posicion) {
-        this.nombre = nombre;
-        this.tamaño = tamaño;
-        this.posicion = posicion;
-    }
+import { Barco } from "./Barco.js";
 
-    estaHundido() {
-        
+export class Destructor extends Barco {
+    constructor() {
+        super("Destructor", 3);
     }
 }

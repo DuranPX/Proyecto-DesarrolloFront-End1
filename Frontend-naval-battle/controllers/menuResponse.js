@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Mostrar la sección seleccionada
         let seccionMostrada = document.getElementById("EntornoJuego-Pc");
         if (seccionMostrada) {
-            seccionMostrada.style.display = "block";
+            seccionMostrada.style.display = "flex";
         }
     }
 
