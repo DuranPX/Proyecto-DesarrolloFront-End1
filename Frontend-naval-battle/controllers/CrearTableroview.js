@@ -1,10 +1,15 @@
+import Tablero from "../models/Tablero";
+import { Acorazado, Destructor, PortaAviones, Submarino } from "../models/barcosCondensador";
+
 document.addEventListener("DOMContentLoaded", function () {
     let botonCrear = document.getElementById("btnCrearPc");
+    let size = parseInt(document.getElementById("inputTableroPc").value);
+
+    let tablero = new Tablero(size, size);
 
     function crearTablero() {
-        let size = parseInt(document.getElementById("inputTableroPc").value);
-        if (isNaN(size) || size < 5 || size > 15) {
-            alert("Ingresa un tamaño válido (entre 5 y 15)");
+        if (isNaN(size) || size < 10 || size > 20) {
+            alert("Ingresa un tamaño válido (entre 10 y 20)");
             return;
         }
 
@@ -18,10 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         for (let fila = 0; fila <= size; fila++) {
             let tr = document.createElement("tr");
-        
+
             for (let col = 0; col <= size; col++) {
                 let td = document.createElement("td");
-        
+
                 // Letras en la primera columna (A, B, C...)
                 if (col === 0 && fila > 0) {
                     td.textContent = String.fromCharCode(64 + fila); // A, B, C...
@@ -39,12 +44,12 @@ document.addEventListener("DOMContentLoaded", function () {
                     td.classList.add("celda");
                     td.onclick = () => marcarCelda(td);
                 }
-        
+
                 tr.appendChild(td);
             }
             tabla.appendChild(tr);
         }
-        
+
     }
 
     function crearIniciarJuegobtn(claseboton) {
@@ -53,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         botonValidar.textContent = "Ir a la batalla!";
         botonValidar.id = "btnBatalla"
-        botonValidar.classList.add("btn", "btn-danger",claseboton);
+        botonValidar.classList.add("btn", "btn-danger", claseboton);
         ContenedorTablero.appendChild(botonValidar);
 
         botonValidar.addEventListener("click", function () {
@@ -61,10 +66,15 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
+    function UbicarBarco(tamañoBarco, fila, columna) {
+
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
+
+        }
+    }
 
     botonCrear.addEventListener("click", function () {
         crearTablero();
-        
     });
-
 });

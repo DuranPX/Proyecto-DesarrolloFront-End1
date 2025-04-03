@@ -2,5 +2,9 @@
     "fbc": {
         "score": 30,
         "country_code": "co"
+    },
+    "okr": {
+        "score": 100,
+        "country_code": "co"
     }
 }

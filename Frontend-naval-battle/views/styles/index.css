@@ -32,7 +32,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        height: 45vh;
+        height: 50vh;
         color: #052f57c5;
         text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     }
@@ -325,7 +325,7 @@
     #countryList {
         display: flex;
         flex-wrap: wrap;
-        max-height: 300px;
+        max-height: 200px;
         overflow-y: auto;
     }
 
@@ -335,14 +335,12 @@
     }
 
     .dropdown-menu {
-        background: rgba(0, 0, 0, 0) !important;
+        background: rgba(0, 132, 255, 0.747) !important;
         backdrop-filter: blur(50px);
         border-radius: 15px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
     }
-    .dropdown-menu li:hover {
-        background-color: rgba(240, 248, 255, 0.199);
-    }
+    
 
     ::-webkit-scrollbar {
         width: 10px;
@@ -361,7 +359,6 @@
         background: transparent;
     }
     
-    
 
     .selected-country {
         display: flex;
@@ -379,6 +376,42 @@
         border-radius: 5px;
     }
     
+    /*Seccion ranking*/
+
+    #ranking-pc{
+        display: none;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #rankingTable-pc{
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        height: 0vh;
+    }
+
+    table {
+        width: 60%;
+        margin: 20px auto;
+        border-collapse: collapse;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    th, td {
+        padding: 12px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    }
+    th {
+        background: rgba(255, 255, 255, 0.3);
+    }
+    img {
+        width: 20px;
+        height: 15px;
+        margin-right: 5px;
+        vertical-align: middle;
+    }
 }
 
 /* Pantallas medianas (Tablets) */

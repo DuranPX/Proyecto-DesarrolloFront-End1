@@ -1,3 +1,5 @@
+import jugador from "../models/Jugador";
+
 document.addEventListener("DOMContentLoaded", function () {
     const elementos = { //si necesitan agregar mas id para cambiar de pagina seguir la misma estructura...
         inicio: {
@@ -24,32 +26,38 @@ document.addEventListener("DOMContentLoaded", function () {
             movil: document.getElementById("")
         }
     };
-    
+
     function irAInicio() {
         console.log("Navegando a Inicio...");
         // Oculta lo que no es menú principal
         document.querySelectorAll("section").forEach(seccion => {
             seccion.style.display = "none";
         });
-    
+
         // Muestra TODOS los posibles menús principales
         document.getElementById("SectionMenu-Pc").style.display = "block";
         document.querySelector(".Section-menuTablet").style.display = "block";
     }
-    
+
     function irARanking() {
         console.log("Mostrando Ranking...");
         document.querySelectorAll("section").forEach(seccion => {
             seccion.style.display = "none";
         });
 
+        const ranking_id = ["Section-rankingsTablet", "ranking-pc"]
         // Mostrar la sección seleccionada
-        let seccionMostrada_Tablet = document.getElementById("Section-rankingsTablet");
-        if (seccionMostrada_Tablet) {
-            seccionMostrada_Tablet.style.display = "block";
-        }
+        ranking_id.forEach(id => {
+            let seccionMostrada = document.getElementById(id);
+            if (seccionMostrada) {
+                seccionMostrada.style.display = "block";
+                console.log(`Sección mostrada: ${id}`);
+            } else {
+                console.warn(`No se encontró la sección con id: ${id}`);
+            }
+        });
     }
-    
+
     function verCreditos() {
         console.log("Mostrando Créditos...");
         document.querySelectorAll("section").forEach(seccion => {
@@ -68,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll("section").forEach(seccion => {
             seccion.style.display = "none";
         });
-    
+
         // Mostrar la sección seleccionada
         let seccionMostrada = document.getElementById("EntornoJuego-Pc");
         if (seccionMostrada) {

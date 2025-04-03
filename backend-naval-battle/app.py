@@ -1,12 +1,13 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
 from flask_cors import CORS
 import json
 import os
+import csv
 
 app = Flask(__name__)
 CORS(app)
 
-DB_FILE = "database/scores.json"
+DB_FILE = os.path.join(os.path.dirname(__file__),"database", "scores.json")
 COUNTRY_FILE = os.path.join(os.path.dirname(__file__), "database", "countries.json")
 
 def load_countries():
@@ -40,6 +41,10 @@ def load_scores():
             return json.load(file)
     return {}
 
+def exportarMapa_csv(tablero):
+    with open("TableroExport",mode="w",newline="") as mapa:
+        escribir= csv.writer(mapa)
+        escribir.writerows(tablero)   
 
 def save_scores(scores):
     with open(DB_FILE, "w") as file:
@@ -75,6 +80,11 @@ def ranking():
 def get_countries():
     countries = load_countries()
     return jsonify(countries)
+
+@app.route("/exportar_tablero", methods=["GET"])
+def descargar_tablero(mapa):
+    archivo = exportarMapa_csv(mapa)
+    return send_file(archivo, as_attachment=True)
 
 
 if __name__ == "__main__":

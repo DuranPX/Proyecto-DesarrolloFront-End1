@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", async () => {
+    
     fetch("http://localhost:5000/countries")
         .then(response => response.json())
         .then(data => {
@@ -39,11 +40,10 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
             
-            //Menu desplegable no automatico
-
+            //Menu desplegable
             dropdownButton.addEventListener("click", (event) => {
                 event.stopPropagation(); // Evita que se cierre por otros clics
-                dropdownMenu.classList.toggle("d-none"); // Alterna la visibilidad
+                dropdownMenu.classList.toggle("d-none");
             });
         
             document.addEventListener("click", (event) => {
@@ -52,6 +52,6 @@ document.addEventListener("DOMContentLoaded", async () => {
                 }
             });
         })
-        .catch(error => console.error("Error cargando los países:", error));
+        .catch(error => console.error("Error cargando los paises rey:", error));
 
 });

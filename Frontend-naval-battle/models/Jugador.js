@@ -6,11 +6,24 @@ class Jugador {
     }
 
     ActualizarScore() {
-
+        fetch("http://localhost:5000/score-recorder", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                nick_name: "Jugador1",
+                score: this.score,
+                country_code: "us"
+            })
+        })
+        .then(response => response.json())  
+        .then(data => console.log("Respuesta del servidor:", data))  
+        .catch(error => console.error("Error en la petición:", error));
     }
 
-    AtacarBarco() {
-
+    AtacoBarco() {
+        this.score+=10;
     }
 
     RecibeImpacto() {
