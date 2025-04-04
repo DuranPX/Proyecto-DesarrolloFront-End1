@@ -3,23 +3,42 @@ import { Acorazado, Destructor, PortaAviones, Submarino } from "../models/barcos
 
 document.addEventListener("DOMContentLoaded", function () {
     let botonCrear = document.getElementById("btnCrearPc");
-    let size = parseInt(document.getElementById("inputTableroPc").value);
-    let esHorizontal = false;
-    let barcoSeleccionado = null;
 
-    let tablero = new Tablero(size, size);
+    //Variables del estado de juego
+    let size = parseInt(document.getElementById("inputTableroPc").value) || 10;
+    let tableroJugador = new Tablero(size, size);
+    let tableroEnemigo = new Tablero(size, size);
+
+    // let PortaAvion = new PortaAviones();
+    // let acorazado = new Acorazado();
+    // let submarinos = [new Submarino(), new Submarino()];
+    // let destructores = [new Destructor(), new Destructor()];
+    
+    let esHorizontal = false;
+    let barcosSeleccionado = null;
+
+    // Objetos que controla los baratos disponibles
+    let barcosDisponibles = {
+        PortaAviones:{cantidad:1,clase:PortaAviones,img: "../views/assets/PortaAviones.png" },
+        Acorazado:{cantidad:1,clase:Acorazado,img: "../views/assets/Acorazado.jpg" },
+        Submarino:{cantidad:2,clase:Submarino,img: "../views/assets/Submarino.jpg"},
+        Destructor:{cantidad:2,clase: Destructor,img: "../views/assets/Destructor.jpg"}
+    };
 
     function crearTablero() {
-        let size = parseInt(document.getElementById("inputTableroPc").value);
-        if (isNaN(size) || size < 10 || size > 20) {
+        const newSize = parseInt(document.getElementById("inputTableroPc").value) || 10;
+        if (isNaN(newSize) || newSize < 10 || newSize > 20) {
             alert("Ingresa un tamaño válido (entre 10 y 20)");
             return;
         }
-        tablero = new Tablero(size, size); // Usa el nuevo valor de size
+
+        tableroJugador = new Tablero(newSize, newSize);
+        tableroEnemigo = new Tablero(newSize, newSize);
         generarTablero("TablaUsuario", size);
         crearIniciarJuegobtn("btnEntornoJugar");
+        console.log("tablero del jugador creado", tableroJugador);
+        console.log("tablero del bot creado", tableroEnemigo);
     }
-    
 
     function generarTablero(id, size) {
         let tabla = document.getElementById(id);
@@ -46,7 +65,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     let filaLetra = String.fromCharCode(64 + fila); // Convierte número en letra
                     td.id = `celda-${filaLetra}-${col}`; // Ejemplo: celda-A-1, celda-B-2
                     td.classList.add("celda");
-                    td.onclick = () => marcarCelda(td);
+
+                    // Guardar posicion en matriz (Fila y Columna)
+                    td.dataset.fila = fila - 1; 
+                    td.dataset.columna = col - 1;
+
+                    td.onclick = () => colocarBarcoEnCelda(
+                        parseInt(td.dataset.fila), 
+                        parseInt(td.dataset.columna)
+                    );
+
+
                 }
 
                 tr.appendChild(td);
@@ -55,6 +84,35 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
     }
+
+    function crearBotonesdeBarcos(){
+        const contenedorBarcos = document.getElementById("contenedor-barcos");
+        contenedorBarcos.innerHTML='';
+        Object.entries(barcosDisponibles).forEach(([nombre, datos]) => {
+           
+            const disponibles = datos.cantidad - datos.colocados;
+            if(disponibles <= 0) return;
+
+            const barcoHTML = `
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="carta barco-seleccionable" data-tipo="${nombre}">
+                        <img src="../views/assets/${datos.img}" alt="${nombre}" class="img-fluid">
+                        <div class="info">
+                            <h3>${nombre}</h3>
+                            <p>Disponibles: ${disponibles}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            contenedorBarcos.insertAdjacentHTML('beforeend', barcoHTML)
+        });
+
+        //Agregar event listeners depués de crear los elementos
+        document.querySelectorAll('.barco-seleccionable').forEach(carta => {
+            carta.addEventListener('click', seleccionarBarco);
+        });
+    }
+    
 
     function crearIniciarJuegobtn(claseboton) {
         let ContenedorTablero = document.getElementById("contenedortablero-pc");
@@ -71,9 +129,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function UbicarBarco(tamañoBarco, fila, columna) {
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
 
+        }
     }
-
+    //alerta de suficientes barcos de tal tipo colocados 
     botonCrear.addEventListener("click", function () {
         crearTablero();
     });
