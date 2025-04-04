@@ -1,5 +1,5 @@
-import Tablero from "../models/Tablero.js";
-import { Acorazado, Destructor, PortaAviones, Submarino } from "../models/barcosCondensador.js";
+import Tablero from "../../models/Tablero.js";
+import { Acorazado, Destructor, PortaAviones, Submarino } from "../../models/barcosCondensador.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     let botonCrear = document.getElementById("btnCrearPc");
@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     let filaLetra = String.fromCharCode(64 + fila); // Convierte número en letra
                     td.id = `celda-${filaLetra}-${col}`; // Ejemplo: celda-A-1, celda-B-2
                     td.classList.add("celda");
-                    td.onclick = () => marcarCelda(td);
                 }
 
                 tr.appendChild(td);
