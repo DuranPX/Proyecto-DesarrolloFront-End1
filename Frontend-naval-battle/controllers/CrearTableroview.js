@@ -4,6 +4,8 @@ import { Acorazado, Destructor, PortaAviones, Submarino } from "../models/barcos
 document.addEventListener("DOMContentLoaded", function () {
     let botonCrear = document.getElementById("btnCrearPc");
     let size = parseInt(document.getElementById("inputTableroPc").value);
+    let esHorizontal = false;
+    let barcoSeleccionado = null;
 
     let tablero = new Tablero(size, size);
 
@@ -68,15 +70,19 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    //function UbicarBarco(tamañoBarco, fila, columna) {
+    function UbicarBarco(tamañoBarco, fila, columna) {
 
-    //   for (let index = 0; index < array.length; index++) {
-    //        const element = array[index];
-
-      //  }
-    //}
+    }
 
     botonCrear.addEventListener("click", function () {
         crearTablero();
     });
+});
+
+// Rotar barco con tecla "R"
+document.addEventListener('keydown', (e) => {
+    if (e.key.toLowerCase() === 'r') {
+        esHorizontal = !esHorizontal; // Alternar entre true/false
+        console.log(`Modo: ${esHorizontal ? 'Horizontal' : 'Vertical'}`);
+    }
 });
