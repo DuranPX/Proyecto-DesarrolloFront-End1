@@ -12,7 +12,7 @@ class Jugador {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                nick_name: "Jugador1",
+                nick_name: this.nickname,
                 score: this.score,
                 country_code: "us"
             })
@@ -29,7 +29,7 @@ class Jugador {
     FalloImpacto() {
         this.score-=1;
     }
-    
+
     cercaImpacto() {
         this.score-=3;
     }
