@@ -1,4 +1,4 @@
-import TableroService from "../controllers/API/TableroService";
+import TableroService from "../controllers/API/TableroService.js";
 
 class Tablero {
     constructor(filas, columnas) {
@@ -14,14 +14,13 @@ class Tablero {
         );
         return matriz;
     }
+    
+
+    colocarBarcoLogico() {
+    }
 
     verificarImpacto() {
     }
-
-    colocarBarcoLogico() {
-
-    }
-
 
     exportarTablero(nombre) {
         TableroService.Exportar_Tablero(nombre,this.matriz);
