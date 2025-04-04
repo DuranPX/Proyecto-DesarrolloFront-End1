@@ -13,11 +13,15 @@ class Tablero {
         return matriz;
     }
 
-    verificarImpacto() {
-
+    verificarImpacto(f, c) {
+        if (this.matriz[f][c] == a) {
+            return a;
+        } else if (this.matriz[f][c] == b) {
+            return p;
+        } else if (this.matriz[f][c])
     }
 
-    colocar() {
+    colocarBarcoLogico() {
 
     }
     exportarTablero() {
