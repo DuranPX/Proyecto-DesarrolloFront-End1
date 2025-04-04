@@ -5,3 +5,5 @@ export class Destructor extends Barco {
         super("Destructor", 3);
     }
 }
+
+export default Destructor;

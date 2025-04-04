@@ -5,3 +5,5 @@ export class Submarino extends Barco {
         super("Submarino", 2);
     }
 }
+
+export default Submarino;

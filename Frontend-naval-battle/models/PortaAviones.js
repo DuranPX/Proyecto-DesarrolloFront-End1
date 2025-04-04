@@ -5,3 +5,4 @@ export class PortaAviones extends Barco {
         super("PortaAviones", 5);
     }
 }
+export default PortaAviones;

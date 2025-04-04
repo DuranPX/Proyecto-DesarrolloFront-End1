@@ -33,3 +33,5 @@ Clima.obtenerDatos(0, -30).then(clima => {
         console.log(`Dirección del viento: ${clima.direccionViento}°`);
     }
 });
+
+export default Clima;

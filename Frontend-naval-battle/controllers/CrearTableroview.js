@@ -1,5 +1,5 @@
-import Tablero from "../models/Tablero";
-import { Acorazado, Destructor, PortaAviones, Submarino } from "../models/barcosCondensador";
+import Tablero from "../models/Tablero.js";
+import { Acorazado, Destructor, PortaAviones, Submarino } from "../models/barcosCondensador.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     let botonCrear = document.getElementById("btnCrearPc");
@@ -8,14 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let tablero = new Tablero(size, size);
 
     function crearTablero() {
+        let size = parseInt(document.getElementById("inputTableroPc").value);
         if (isNaN(size) || size < 10 || size > 20) {
             alert("Ingresa un tamaño válido (entre 10 y 20)");
             return;
         }
-
+        tablero = new Tablero(size, size); // Usa el nuevo valor de size
         generarTablero("TablaUsuario", size);
         crearIniciarJuegobtn("btnEntornoJugar");
     }
+    
 
     function generarTablero(id, size) {
         let tabla = document.getElementById(id);
@@ -66,13 +68,13 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    function UbicarBarco(tamañoBarco, fila, columna) {
+    //function UbicarBarco(tamañoBarco, fila, columna) {
 
-        for (let index = 0; index < array.length; index++) {
-            const element = array[index];
+    //   for (let index = 0; index < array.length; index++) {
+    //        const element = array[index];
 
-        }
-    }
+      //  }
+    //}
 
     botonCrear.addEventListener("click", function () {
         crearTablero();

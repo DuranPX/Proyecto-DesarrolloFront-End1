@@ -1,630 +1,418 @@
-/* Ocultar todos por defecto */
-.ParaPc,
-.ParaTablet,
-.ParaMovil {
+.ParaPc {
+    display: block;
+}
+
+body {
+    background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 12, 36, 0.233)),
+        url('../assets/9c9100b43b20138280ff15dd7e40d5da.gif');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    backdrop-filter: blur(2px);
+}
+
+@font-face {
+    font-family: 'Stella Lumina';
+    src: url('../assets/STELLALUMINA-W4BP.TTF') format('truetype');
+}
+
+/** Section inicio Pc-Menu  **/
+.GameTitle {
+    font-family: 'Stella Lumina', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+    color: #052f57c5;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.pc-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 0vh;
+}
+
+.items-menu {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+}
+
+#content-Base1 {
+    margin-inline: auto;
+    margin-bottom: 20px;
+    max-width: 100%;
+}
+
+
+#content-Base2 {
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.inicio-text,
+.ranking-text,
+.creditos-text {
+    color: rgba(0, 0, 0, 0.596);
+    text-decoration: none;
+    user-select: none;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.inicio-text:hover,
+.ranking-text:hover,
+.creditos-text:hover {
+    color: rgba(255, 255, 255, 0.774);
+}
+
+#textInicio:hover,
+#textRanking:hover,
+#textCredit:hover {
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+}
+
+.banderaImg {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+}
+
+.banderaImg img {
+    width: 100%;
+    height: auto;
+}
+
+#input-login {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border-color: rgba(0, 0, 0, 0);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#btnMenu {
+    align-items: center;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.61);
+    color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#btnMenu:hover {
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+    background-color: rgba(22, 57, 63, 0.486);
+    color: rgb(255, 255, 255);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#btnMenu:active {
+    background-color: rgba(0, 58, 68, 0.397);
+    color: rgb(255, 255, 255);
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+#textosElement {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+}
+
+/** Section entorno de juego Pc**/
+#EntornoJuego-Pc {
+    display: none;
+    justify-content: center;
+    justify-content: center;
+    align-items: center;
+    min-height: 5vh;
+    padding-top: 20px;
+    border-color: black 5px;
+    overflow: hidden;
+}
+
+#EntornoPc {
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.ImgsDEscription-pc {
+    padding-top: 10px;
+    padding-bottom: 20px;
+    gap: 30px;
+}
+
+.TituloEntorno-Pc {
+    text-align: center;
+    font-family: 'Stella Lumina', sans-serif;
+    user-select: none;
+    cursor: auto;
+    color: aliceblue;
+    text-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
+}
+
+.barcosImgs-pc,
+.MapasImgs-pc {
+    padding: 10px;
+}
+
+.barcosImgs-pc:hover .carta:not(:hover),
+.MapasImgs-pc:hover .carta:not(:hover) {
+    filter: blur(5px);
+    opacity: 0.5;
+    /* Opcional: hace que se vean más apagadas */
+}
+
+/* Ajusta las cartas dentro de col-3 para que no se salgan */
+.carta {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Asegurar que las imágenes no sobrepasen las cartas */
+.carta img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.info {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    /* Fondo semi-transparente */
+    color: white;
+    text-align: center;
+    padding: 5px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.carta:hover .info {
+    opacity: 1;
+    user-select: none;
+    cursor: pointer;
+    /* Muestra la info cuando pasas el mouse */
+}
+
+.carta:hover img {
+    width: 100%;
+    height: 100%;
+}
+
+/* Efecto hover */
+.carta:hover {
+    transform: scale(1.05);
+    z-index: 5;
+    background-color: #16213e45;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+}
+
+.inputTablero-pc {
+    display: block;
+}
+
+#inputTableroPc {
+    background: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    border-color: rgb(255, 255, 255);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    margin: 5px;
+}
+
+#btnCrearPc {
+    align-items: center;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0.61);
+    color: rgb(0, 0, 0);
+    margin-bottom: 10px;
+    width: 100%;
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.contenedortablero-pc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#TablaUsuario td {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 14px;
+
+}
+
+#TablaUsuario {
+    background: url(../assets/2488ff9d-da3e-4099-830e-cd18711b340a.gif);
+    background-position: center;
+    background-size: cover;
+    border: 2px solid;
+    justify-content: center;
+    align-items: center;
+}
+
+.coordenada {
+    border: 2px;
+    font-weight: bold;
+}
+
+.celda {
+    border: 2px solid;
+}
+
+.celda:hover {
+    background-color: lightgray;
+}
+
+.marcado {
+    background-color: red;
+}
+
+#contenedortablero-pc {
+    justify-items: center;
+}
+
+#btnBatalla {
+    margin-top: 10px;
+}
+
+/*INFORMACION IMPORTANTE: relacionado con flagsResponse.js(no modificar- ajustar a sus pantallas)*/
+
+
+#countryList {
+    display: flex;
+    flex-wrap: wrap;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#countryList li {
+    flex: 1 1 50%;
+    list-style: none;
+}
+
+.dropdown-menu {
+    background: rgba(0, 132, 255, 0.747) !important;
+    backdrop-filter: blur(50px);
+    border-radius: 15px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.795);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgb(255, 255, 255);
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+
+.selected-country {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 15px;
+    max-width: 200px;
+}
+
+.flag-img-large {
+    width: 50px;
+    height: auto;
+    border-radius: 5px;
+}
+
+/*Seccion ranking*/
+
+#ranking-pc {
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+
+#rankingTable-pc {
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    height: 0vh;
+}
+
+table {
+    width: 60%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th,
+td {
+    padding: 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+th {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+img {
+    width: 20px;
+    height: 15px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+/*relacionado con seccion creditos*/
+#cretidos-pc {
     display: none;
 }
 
-/* Pantallas grandes (PC) */
-@media (min-width: 1025px) {
-
-    .ParaPc {
-        display: block;
-    }
-
-    body {
-        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 12, 36, 0.233)),
-            url('../assets/9c9100b43b20138280ff15dd7e40d5da.gif');
-        background-size: cover;
-        background-position: center;
-        height: 100vh;
-        backdrop-filter: blur(2px);
-    }
-
-    @font-face {
-        font-family: 'Stella Lumina';
-        src: url('../assets/STELLALUMINA-W4BP.TTF') format('truetype');
-    }
-
-    /** Section inicio Pc-Menu  **/
-    .GameTitle {
-        font-family: 'Stella Lumina', sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 50vh;
-        color: #052f57c5;
-        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
-    }
-
-    .pc-menu {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 0vh;
-    }
-
-    .items-menu {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(15px);
-        border-radius: 15px;
-        padding: 30px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        max-width: 600px;
-        width: 100%;
-    }
-
-    #content-Base1 {
-        margin-inline: auto;
-        margin-bottom: 20px;
-        max-width: 100%;
-    }
-
-
-    #content-Base2 {
-        border-radius: 5px;
-        margin-bottom: 20px;
-    }
-
-    .inicio-text,
-    .ranking-text,
-    .creditos-text {
-        color: rgba(0, 0, 0, 0.596);
-        text-decoration: none;
-        user-select: none;
-        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    }
-
-    .inicio-text:hover,
-    .ranking-text:hover,
-    .creditos-text:hover {
-        color: rgba(255, 255, 255, 0.774);
-    }
-
-    #textInicio:hover,
-    #textRanking:hover,
-    #textCredit:hover {
-        cursor: pointer;
-        background: rgba(255, 255, 255, 0);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-    }
-
-    .banderaImg {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 24px;
-        height: 24px;
-    }
-
-    .banderaImg img {
-        width: 100%;
-        height: auto;
-    }
-
-    #input-login {
-        background: rgba(0, 0, 0, 0);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-        border-color: rgba(0, 0, 0, 0);
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    #btnMenu {
-        align-items: center;
-        padding: 5px;
-        background-color: rgba(255, 255, 255, 0.61);
-        color: rgb(0, 0, 0);
-        margin-bottom: 10px;
-        width: 100%;
-        border-radius: 15px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    #btnMenu:hover {
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-        background-color: rgba(22, 57, 63, 0.486);
-        color: rgb(255, 255, 255);
-        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-    }
-
-    #btnMenu:active {
-        background-color: rgba(0, 58, 68, 0.397);
-        color: rgb(255, 255, 255);
-        transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-    }
-
-    #textosElement {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        flex-wrap: wrap;
-    }
-
-    /** Section entorno de juego Pc**/
-    #EntornoJuego-Pc {
-        display: none;
-        justify-content: center;
-        justify-content: center;
-        align-items: center;
-        min-height: 5vh;
-        padding-top: 20px;
-        border-color: black 5px;
-        overflow: hidden;
-    }
-
-    #EntornoPc {
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-        box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .ImgsDEscription-pc {
-        padding-top: 10px;
-        padding-bottom: 20px;
-        gap: 30px;
-    }
-
-    .TituloEntorno-Pc {
-        text-align: center;
-        font-family: 'Stella Lumina', sans-serif;
-        user-select: none;
-        cursor: auto;
-        color: aliceblue;
-        text-shadow: 0px 6px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .barcosImgs-pc,
-    .MapasImgs-pc {
-        padding: 10px;
-    }
-
-    .barcosImgs-pc:hover .carta:not(:hover),
-    .MapasImgs-pc:hover .carta:not(:hover) {
-        filter: blur(5px);
-        opacity: 0.5;
-        /* Opcional: hace que se vean más apagadas */
-    }
-
-    /* Ajusta las cartas dentro de col-3 para que no se salgan */
-    .carta {
-        position: relative;
-        width: 200px;
-        height: 200px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 5px;
-        overflow: hidden;
-    }
-
-    /* Asegurar que las imágenes no sobrepasen las cartas */
-    .carta img {
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-    }
-
-    .info {
-        position: absolute;
-        bottom: 0;
-        width: 100%;
-        background: rgba(0, 0, 0, 0.6);
-        /* Fondo semi-transparente */
-        color: white;
-        text-align: center;
-        padding: 5px;
-        font-size: 12px;
-        opacity: 0;
-        transition: opacity 0.3s ease-in-out;
-    }
-
-    .carta:hover .info {
-        opacity: 1;
-        user-select: none;
-        cursor: pointer;
-        /* Muestra la info cuando pasas el mouse */
-    }
-
-    .carta:hover img {
-        width: 100%;
-        height: 100%;
-    }
-
-    /* Efecto hover */
-    .carta:hover {
-        transform: scale(1.05);
-        z-index: 5;
-        background-color: #16213e45;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
-        transition: transform 0.3s ease-in-out;
-    }
-
-    .inputTablero-pc {
-        display: block;
-    }
-
-    #inputTableroPc {
-        background: rgba(0, 0, 0, 0);
-        backdrop-filter: blur(10px);
-        border-radius: 15px;
-        border-color: rgb(255, 255, 255);
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        margin: 5px;
-    }
-
-    #btnCrearPc {
-        align-items: center;
-        padding: 5px;
-        background-color: rgba(255, 255, 255, 0.61);
-        color: rgb(0, 0, 0);
-        margin-bottom: 10px;
-        width: 100%;
-        border-radius: 15px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    .contenedortablero-pc {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #TablaUsuario td {
-        width: 30px;
-        height: 30px;
-        border: 1px solid black;
-        text-align: center;
-        font-size: 14px;
-
-    }
-
-    #TablaUsuario {
-        background: url(../assets/2488ff9d-da3e-4099-830e-cd18711b340a.gif);
-        background-position: center;
-        background-size: cover;
-        border: 2px solid;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .coordenada {
-        border: 2px;
-        font-weight: bold;
-    }
-
-    .celda {
-        border: 2px solid;
-    }
-
-    .celda:hover {
-        background-color: lightgray;
-    }
-
-    .marcado {
-        background-color: red;
-    }
-
-    #contenedortablero-pc {
-        justify-items: center;
-    }
-
-    #btnBatalla {
-        margin-top: 10px;
-    }
-
-    /*INFORMACION IMPORTANTE: relacionado con flagsResponse.js(no modificar- ajustar a sus pantallas)*/
-
-
-    #countryList {
-        display: flex;
-        flex-wrap: wrap;
-        max-height: 200px;
-        overflow-y: auto;
-    }
-
-    #countryList li {
-        flex: 1 1 50%;
-        list-style: none;
-    }
-
-    .dropdown-menu {
-        background: rgba(0, 132, 255, 0.747) !important;
-        backdrop-filter: blur(50px);
-        border-radius: 15px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    }
-    
-
-    ::-webkit-scrollbar {
-        width: 10px;
-    }
-    
-    ::-webkit-scrollbar-thumb {
-        background: rgba(255, 255, 255, 0.795);
-        border-radius: 4px;
-    }
-    
-    ::-webkit-scrollbar-thumb:hover {
-        background: rgb(255, 255, 255);
-    }
-    
-    ::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    
-
-    .selected-country {
-        display: flex;
-        align-items: center;
-        padding: 10px;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(5px);
-        border-radius: 15px;
-        max-width: 200px;
-    }
-    
-    .flag-img-large {
-        width: 50px;
-        height: auto;
-        border-radius: 5px;
-    }
-    
-    /*Seccion ranking*/
-
-    #ranking-pc{
-        display: none;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #rankingTable-pc{
-        text-align: center;
-        justify-content: center;
-        align-items: center;
-        height: 0vh;
-    }
-
-    table {
-        width: 60%;
-        margin: 20px auto;
-        border-collapse: collapse;
-        background: rgba(255, 255, 255, 0.2);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    th, td {
-        padding: 12px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    th {
-        background: rgba(255, 255, 255, 0.3);
-    }
-    img {
-        width: 20px;
-        height: 15px;
-        margin-right: 5px;
-        vertical-align: middle;
-    }
-}
-
-/* Pantallas medianas (Tablets) */
-@media (min-width: 769px) and (max-width: 1024px) {
-    @font-face {
-        font-family: 'Stella Lumina';
-        src: url('../assets/STELLALUMINA-W4BP.TTF') format('truetype');
-    }
-
-    .ParaTablet {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 12, 36, 0.39)),
-            url('../assets/9c9100b43b20138280ff15dd7e40d5da.gif');
-        background-size: cover;
-        background-position: center;
-        min-height: 100vh;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Menú Tablets*/
-    #tabletMenu {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-    }
-
-    #selectionMenu {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(15px);
-        border-radius: 15px;
-        padding: 30px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        margin: 0 auto;
-        max-width: 400px;
-        width: auto;
-        margin-bottom: 100px;
-    }
-
-    #gameTitle {
-        font-weight: bold;
-        font-family: 'Stella Lumina', sans-serif;
-        margin-bottom: 20px;
-        color: #052f57c5;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        justify-items: center;
-        margin-top: 100px;
-        min-width: 500px;
-    }
-
-    #optionMenu {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    #selectText {
-        color: rgba(56, 94, 95, 0.8);
-        margin-bottom: 20px;
-        width: 100%;
-    }
-
-    #buttonMenu {
-        width: 150%;
-        margin-left: 68px;
-    }
-
-    .btnsInicioTablet {
-        padding: 12px 20px;
-        border-radius: 15px;
-        background-color: rgba(11, 66, 117, 0.61);
-        margin-bottom: 15px;
-        width: 100%;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        border-color: #052f57c5;
-        font-size: 16px;
-        cursor: pointer;
-        transition: all 0.4s ease;
-    }
-
-    .btnsInicioTablet:hover {
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-        color: rgb(255, 255, 255);
-        border-color: rgb(95, 158, 160);
-        background-color: rgba(22, 57, 63, 0.486);
-        transform: translateY(-5px);
-    }
-
-    /* Página de Creditos*/
-    #Section-creditsTablet {
-        display: none;
-        padding: 20px;
-        backdrop-filter: blur(15px);
-    }
-
-    #Section-creditsTablet p {
-        color: black;
-    }
-
-    .tabletCreditsTitles {
-        font-weight: bold;
-        font-family: 'Stella Lumina', sans-serif;
-        color: darkslategray;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        justify-items: center;
-        margin-bottom: 15px;
-    }
-
-    #container1CreditsTablet {
-        text-align: center;
-    }
-
-    #container2CreditsTablet {
-        text-align: center;
-        margin: 60px;
-    }
-
-    #container2-1CreditsTablet {
-        justify-items: center;
-        padding: 20px;
-    }
-
-    #container2-2CreditsTablet {
-        justify-items: center;
-    }
-
-    #container3CreditsTablet {
-        text-align: center;
-    }
-
-    #container4CreditsTablet {
-        text-align: center;
-        margin-top: 50px;
-    }
-
-    .btnVolverTablet {
-        padding: 12px 20px;
-        justify-content: center;
-        border-radius: 15px;
-        background-color: rgba(11, 66, 117, 0.61);
-        margin-bottom: 15px;
-        max-width: 300px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        border-color: #052f57c5;
-        font-size: 16px;
-        cursor: pointer;
-        transition: all 0.4s ease;
-    }
-
-    #volverRankings_tablet {
-        margin-top: 10px;
-        align-items: center;
-    }
-
-    .btnVolverTablet:hover {
-        box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-        color: rgb(255, 255, 255);
-        border-color: rgb(95, 158, 160);
-        background-color: rgba(22, 57, 63, 0.486);
-        transform: translateY(-5px);
-    }
-
-    /* Página de Rankings*/
-    #Section-rankingsTablet {
-        display: none;
-    }
-
-    #rankingsTitle {
-        font-family: 'Stella Lumina', sans-serif;
-        color: #052f57c5;
-        justify-items: center;
-    }
-
-    #rankingsMenu {
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(15px);
-        border-radius: 15px;
-        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        width: 100%;
-        justify-items: center;
-        min-height: 150px;
-    }
-
-    #rankingsContainer {
-        justify-content: center;
-    }
-
-    #rankingsTable {
-        border-radius: 10px;
-        border-color: aliceblue;
-        border: 5px;
-        justify-items: center;
-    }
-
-    #rankingsTitles {
-        background-color: rgba(56, 94, 95, 0.8);
-    }
-
-    .rankingsTiles {
-        background-color: rgb(95, 158, 160);
-        border-color: aliceblue;
-        border: 5px;
-    }
-}
-
-/* Pantallas pequeñas (Móviles) */
-@media (max-width: 768px) {
-    .ParaMovil {
-        display: block;
-    }
+/*relacionado con juego en pantalla*/
+#juego-pc{
+    display: none;
 }

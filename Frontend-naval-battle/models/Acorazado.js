@@ -5,3 +5,4 @@ export class Acorazado extends Barco {
         super("Acorazado", 4);
     }
 }
+export default Acorazado;

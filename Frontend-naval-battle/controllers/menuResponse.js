@@ -1,29 +1,16 @@
-import jugador from "../models/Jugador";
-
 document.addEventListener("DOMContentLoaded", function () {
     const elementos = { //si necesitan agregar mas id para cambiar de pagina seguir la misma estructura...
         inicio: {
-            pc: document.getElementById("textInicio"),
-            tablet: {
-                volverCredits: document.getElementById("volverCredits_tablet"),
-                volverRankings: document.getElementById("volverRankings_tablet")
-            },
-            movil: document.getElementById("")
+            pc: document.getElementById("textInicio")
         },
         ranking: {
-            pc: document.getElementById("textRanking"),
-            tablet: document.getElementById("textRankings_tablet"),
-            movil: document.getElementById("")
+            pc: document.getElementById("textRanking")
         },
         creditos: {
-            pc: document.getElementById("textCredit"),
-            tablet: document.getElementById("textCredits_tablet"),
-            movil: document.getElementById("")
+            pc: document.getElementById("textCredit")
         },
         JuegoBtn: {
-            pc: document.getElementById("btnMenu"),
-            tablet: document.getElementById(""),
-            movil: document.getElementById("")
+            pc: document.getElementById("btnMenu")
         }
     };
 
@@ -36,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Muestra TODOS los posibles menús principales
         document.getElementById("SectionMenu-Pc").style.display = "block";
-        document.querySelector(".Section-menuTablet").style.display = "block";
     }
 
     function irARanking() {
@@ -45,17 +31,14 @@ document.addEventListener("DOMContentLoaded", function () {
             seccion.style.display = "none";
         });
 
-        const ranking_id = ["Section-rankingsTablet", "ranking-pc"]
         // Mostrar la sección seleccionada
-        ranking_id.forEach(id => {
-            let seccionMostrada = document.getElementById(id);
+        let seccionMostrada = document.getElementById("ranking-pc");
             if (seccionMostrada) {
                 seccionMostrada.style.display = "block";
-                console.log(`Sección mostrada: ${id}`);
+                console.log(`Sección mostrada: ranking-pc`);
             } else {
-                console.warn(`No se encontró la sección con id: ${id}`);
+                console.warn(`No se encontró la sección con id: ranking-pc `);
             }
-        });
     }
 
     function verCreditos() {
@@ -65,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Mostrar la sección seleccionada
-        let seccionMostrada = document.getElementById("Section-creditsTablet");
+        let seccionMostrada = document.getElementById("creditos-pc");
         if (seccionMostrada) {
             seccionMostrada.style.display = "block";
         }
@@ -87,10 +70,4 @@ document.addEventListener("DOMContentLoaded", function () {
     Object.values(elementos.ranking).forEach(el => el?.addEventListener("click", irARanking));
     Object.values(elementos.creditos).forEach(el => el?.addEventListener("click", verCreditos));
     Object.values(elementos.JuegoBtn).forEach(el => el?.addEventListener("click", verEntornoJuego));
-
-    if (elementos.inicio.tablet) {
-        Object.values(elementos.inicio.tablet).forEach(boton => {
-            if (boton) boton.addEventListener("click", irAInicio);
-        });
-    }
 });
