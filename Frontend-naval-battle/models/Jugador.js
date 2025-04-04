@@ -26,8 +26,12 @@ class Jugador {
         this.score+=10;
     }
 
-    RecibeImpacto() {
-        
+    FalloImpacto() {
+        this.score-=1;
+    }
+    
+    cercaImpacto() {
+        this.score-=3;
     }
 }
 export default Jugador;

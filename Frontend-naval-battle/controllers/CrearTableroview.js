@@ -3,21 +3,28 @@ import { Acorazado, Destructor, PortaAviones, Submarino } from "../models/barcos
 
 document.addEventListener("DOMContentLoaded", function () {
     let botonCrear = document.getElementById("btnCrearPc");
-    let size = parseInt(document.getElementById("inputTableroPc").value);
+    let size = parseInt(document.getElementById("inputTableroPc").value) || 10;
+    let tableroJugador = new Tablero(size, size);
+    let tableroEnemigo = new Tablero(size, size);
 
-    let tablero = new Tablero(size, size);
+    let PortaAvion = new PortaAviones();
+    let acorazado = new Acorazado();
+    let submarinos = [new Submarino(), new Submarino()];
+    let destructores = [new Destructor(), new Destructor()];
 
     function crearTablero() {
-        let size = parseInt(document.getElementById("inputTableroPc").value);
-        if (isNaN(size) || size < 10 || size > 20) {
-            alert("Ingresa un tamaño válido (entre 10 y 20)");
+        let size = parseInt(document.getElementById("inputTableroPc").value) || 10;
+        if (isNaN(size) || size < 5 || size > 15) {
+            alert("Ingresa un tamaño válido (entre 5 y 15)");
             return;
         }
-        tablero = new Tablero(size, size); // Usa el nuevo valor de size
+        tableroJugador = new Tablero(size, size);
+        tableroEnemigo = new Tablero(size, size);
         generarTablero("TablaUsuario", size);
         crearIniciarJuegobtn("btnEntornoJugar");
+        console.log("tablero del jugador creado", tableroJugador);
+        console.log("tablero del bot creado", tableroEnemigo);
     }
-    
 
     function generarTablero(id, size) {
         let tabla = document.getElementById(id);
@@ -68,14 +75,13 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    //function UbicarBarco(tamañoBarco, fila, columna) {
+    function UbicarBarco(tamañoBarco, fila, columna) {
+        for (let index = 0; index < array.length; index++) {
+            const element = array[index];
 
-    //   for (let index = 0; index < array.length; index++) {
-    //        const element = array[index];
-
-      //  }
-    //}
-
+        }
+    }
+    //alerta de suficientes barcos de tal tipo colocados 
     botonCrear.addEventListener("click", function () {
         crearTablero();
     });

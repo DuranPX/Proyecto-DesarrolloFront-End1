@@ -14,12 +14,13 @@ class Tablero {
     }
 
     verificarImpacto() {
+    }
+
+    colocarBarcoLogico() {
 
     }
 
-    colocar() {
 
-    }
     exportarTablero() {
         fetch("http://localhost:5000/exportar_tablero")
         .then(response => response.blob())
