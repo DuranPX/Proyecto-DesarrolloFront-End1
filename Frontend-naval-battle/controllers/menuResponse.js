@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function () {
         creditos: {
             pc: document.getElementById("textCredit")
         },
-        JuegoBtn: {
+        ModoJuego: {
             pc: document.getElementById("btnMenu")
         }
     };
@@ -63,11 +63,11 @@ document.addEventListener("DOMContentLoaded", function () {
         // Mostrar la sección seleccionada
         let seccionMostrada = document.getElementById("EntornoJuego-Pc");
         if (seccionMostrada) {
-            seccionMostrada.style.display = "flex";
+            seccionMostrada.style.display = "block";
         }
     }
 
     Object.values(elementos.ranking).forEach(el => el?.addEventListener("click", irARanking));
     Object.values(elementos.creditos).forEach(el => el?.addEventListener("click", verCreditos));
-    Object.values(elementos.JuegoBtn).forEach(el => el?.addEventListener("click", verEntornoJuego));
+    Object.values(elementos.ModoJuego).forEach(el => el?.addEventListener("click", verEntornoJuego));
 });
