@@ -34,7 +34,7 @@
 
 <body class="bodyClass">
     <div class="container-fluid ParaPc">
-        <section class="SectionMenu-Pc">
+        <section id="SectionMenu-Pc">
             <h1 class="GameTitle">Mythic Warships</h1>
             <div class="pc-menu">
                 <div class="items-menu">
@@ -90,8 +90,10 @@
                     </thead>
                     <tbody id="tablaJugadores-pc"></tbody> <!--aca van los jugadores-->
                 </table>
+                <div>
+                    <button type="button" id="btnVolverRanking" class="btnVolver">Volver a Inicio</button>
+                </div>
             </div>
-
         </section>
         <section id="creditos-pc"></section>
         <section id="EntornoJuego-Pc">
@@ -103,7 +105,7 @@
                             <div class="row barcosImgs-pc mt-3">
                                 <div class="col-3">
                                     <div class="carta">
-                                        <img src="../views/assets/Destructor.jpg" alt="Destructor" class="img-fluid">
+                                        <img src="../views/assets/Destructor.jpg" alt="Destructor" class="img-fluid" data-tipo="Destructor" data-longitud="3">
                                         <div class="info">
                                             <h3>Destructor</h3>
                                             <p>Buque de guerra rápido y maniobrable.</p>
@@ -182,12 +184,6 @@
                         </div>
                     </div>
                     <hr>
-                    <div>
-                        <div id="contenedortablero-pc">
-                            <table id="TablaUsuario"></table>
-                        </div>
-                        <p>Arrastra los barcos en su posicion </p>
-                    </div>
                     <div class="item-hints">
                         <div class="hint" data-position="4">
                           <span class="hint-radius"></span>
@@ -195,6 +191,11 @@
                           <div class="hint-content do--split-children">
                             <p>Haz click en los barcos para ubicarlos en el mapa. Pulsa "R" para rotar tu barco.</p>
                           </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div id="contenedortablero-pc">
+                            <table id="TablaUsuario"></table>
                         </div>
                     </div>
                 </div>
@@ -233,6 +234,39 @@
                         </div>
                         <div class="col-4"><button class="btn btn-success exportarBtn-pc">Exportar Mapa →</button></div>
                     </div>
+                </div>
+            </div>
+        </section>
+        <section id="Creditos">
+            <div id="containerCreditsGeneral" class="container-fluid">
+                <div id="container1Credits" class="container">
+                        <h3 class="CreditsTitles">Autores</h3>
+                        <p>Juan David Durán Vásquez</p>
+                        <p>Carlos Felipe Lema Ríos</p>
+                        <p>Alejandro Ocampo Herrera</p>
+                </div>
+                <div id="container2Credits" class="row">
+                    <div id="container2-1Credits" class="container col-6">
+                        <h3 class="CreditsTitles">Gráficos</h3>
+                        <p>Carlos Felpe Lema Ríos</p>
+                        <p>Juan David Durán Vásquez</p>
+                        <p>Alejandro Ocampo Herrera</p>
+                    </div>
+                    <div id="container2-2Credits" class="container col-6">
+                        <h3 class="CreditsTitles">Música y Sonido</h3>
+                        <p>Alejandro Ocampo Herrera</p>
+                        <p>Carlos Felipe Lema Ríos</p>
+                        <p>Juan David Durán Vásquez</p>
+                    </div>
+                </div>
+                <div id="container3Credits" class="container">
+                        <h3 class="CreditsTitles">Agradecimientos</h3>
+                        <p>Juan David Durán Vásquez</p>
+                        <p>Alejandro Ocampo Herrera</p>
+                        <p>Carlos Felipe Lema Ríos</p>
+                </div>
+                <div id="container4Credits">
+                    <button type="button" id="btnVolverCredits" class="btnVolver">Volver a Inicio</button>
                 </div>
             </div>
         </section>

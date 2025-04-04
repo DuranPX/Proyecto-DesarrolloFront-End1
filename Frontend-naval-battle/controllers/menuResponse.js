@@ -1,7 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
     const elementos = { //si necesitan agregar mas id para cambiar de pagina seguir la misma estructura...
         inicio: {
-            pc: document.getElementById("textInicio")
+            pc: {
+                volverCredits: document.getElementById("btnVolverCredits"),
+                volverRankings: document.getElementById("btnVolverRanking")
+            },
         },
         ranking: {
             pc: document.getElementById("textRanking")
@@ -22,7 +25,13 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Muestra TODOS los posibles menús principales
-        document.getElementById("SectionMenu-Pc").style.display = "block";
+        let seccionMostrada = document.getElementById("SectionMenu-Pc");
+            if (seccionMostrada) {
+                seccionMostrada.style.display = "block";
+                console.log(`Sección mostrada: SectionMenu-Pc`);
+            } else {
+                console.warn(`No se encontró la sección con id: SectionMenu-Pc `);
+            }
     }
 
     function irARanking() {
@@ -48,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         // Mostrar la sección seleccionada
-        let seccionMostrada = document.getElementById("creditos-pc");
+        let seccionMostrada = document.getElementById("Creditos");
         if (seccionMostrada) {
             seccionMostrada.style.display = "block";
         }
@@ -70,4 +79,10 @@ document.addEventListener("DOMContentLoaded", function () {
     Object.values(elementos.ranking).forEach(el => el?.addEventListener("click", irARanking));
     Object.values(elementos.creditos).forEach(el => el?.addEventListener("click", verCreditos));
     Object.values(elementos.ModoJuego).forEach(el => el?.addEventListener("click", verEntornoJuego));
+    
+    if (elementos.inicio.pc) {
+        Object.values(elementos.inicio.pc).forEach(boton => {
+            if (boton) boton.addEventListener("click", irAInicio);
+        });
+    }
 });

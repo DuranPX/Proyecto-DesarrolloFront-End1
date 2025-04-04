@@ -14,17 +14,24 @@ class Tablero {
     }
 
     verificarImpacto(f, c) {
-        if (this.matriz[f][c] == a) {
+        const casilla = this.matriz[f][c];
+
+        if (casilla === a) {
+            FalloImpacto();
             return a;
-        } else if (this.matriz[f][c] == b) {
+        } else if (casilla === b) {
+            AtacoBarco();
             return p;
-        } else if (this.matriz[f][c])
+        } else if (casilla === a-b) {
+            cercaImpacto();
+            return c; 
+        }
     }
 
     colocarBarcoLogico() {
-
+        
     }
-    exportarTablero() {
+        exportarTablero() {
         fetch("http://localhost:5000/exportar_tablero")
         .then(response => response.blob())
         .then(blob => {
