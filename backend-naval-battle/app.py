@@ -51,7 +51,6 @@ def save_scores(scores):
     with open(DB_FILE, "w") as file:
         json.dump(scores, file, indent=4)
 
-
 @app.route("/score-recorder", methods=["POST"])
 def score_recorder():
     data = request.json
@@ -88,7 +87,6 @@ def descargar_tablero():
     matriz = json.loads(matriz_json)
     archivo = exportarMapa_csv(nombre,matriz);
     return send_file(archivo, as_attachment=True)
-
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -2,6 +2,7 @@ import TableroService from "../controllers/API/TableroService.js";
 
 class Tablero {
     constructor(filas, columnas) {
+        
         this.filas = filas;
         this.columnas = columnas;
         this.matriz = this.inicializarMatriz();
@@ -21,27 +22,29 @@ class Tablero {
         } else if (this.matriz[f][c] === "a") {
             return true;
         }
+        return true;
     }
     
     colocarBarcoLogico(f, c, tamBarco, orientacionBarco) {
-        if (orientacionBarco === "Vertical") {
+        if (orientacionBarco === "vertical") {
             for (let i = 0; i < tamBarco; i++) {
-                console.log(this.matriz[f + i][c]);
                 if (this.verificarSolapamiento(f + i, c) === true) {
                     this.matriz[f + i][c] = "b";
                 } else {
-                    return console.log("Hay solapamiento bobo hijueputa");
+                    console.log("Hay solapamiento bobo hijueputa");
+                    return  true;
                 }
             }
-        } else if (orientacionBarco === "Horizontal") {
+        } else if (orientacionBarco === "horizontal") {
             for (let i = 0; i < tamBarco; i++) {
-                console.log(this.matriz[f][c + i]);
                 if (this.verificarSolapamiento(f, c + i) === true) {
                     this.matriz[f][c + i] = "b";
                 } else {
-                    return console.log("Hay solapamiento bobo hijueputa");
+                    console.log("Hay solapamiento bobo hijueputa");
+                    return  true;
                 }
             }
+            return false;
         }
     }
 
@@ -78,7 +81,8 @@ class Tablero {
 
 
     exportarTablero(nombre) {
-        TableroService.Exportar_Tablero(nombre,this.matriz);
+        let tableroExport = new TableroService();
+        tableroExport.Exportar_Tablero(nombre , this.tablero);
     }
 
 }

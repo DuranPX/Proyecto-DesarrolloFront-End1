@@ -1,4 +1,10 @@
-document.addEventListener("DOMContentLoaded", function () {
+import RankingService from "../API/rankingServices.js";
+
+document.addEventListener("DOMContentLoaded", async ()=> {
+
+    const rankingService = new RankingService();
+    await rankingService.datosRanking();  // Cargar los datos
+
     const elementos = { //si necesitan agregar mas id para cambiar de pagina seguir la misma estructura...
         inicio: {
             pc: {
@@ -64,6 +70,12 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function verEntornoJuego() {
+        // Verificamos que el jugador haya ingresado un nombre
+        let NickName = document.getElementById("input-login");
+        if (!NickName.value.trim()) {
+            alert("¡Ingresa un nickname!");
+            return;
+        }
         console.log("Mostrando Entorno Juego...");
         document.querySelectorAll("section").forEach(seccion => {
             seccion.style.display = "none";

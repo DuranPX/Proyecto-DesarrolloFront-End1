@@ -1,6 +1,10 @@
+import RankingService from "../controllers/API/rankingServices.js";
+
 class Jugador {
+
     constructor(nickname, score, maquina) {
-        this.nickname = nickname;
+        let ranking = new RankingService();
+        this.nickname = ranking.findAPlayer(nickname);
         this.score = score;
         this.maquina = maquina;
     }
@@ -33,5 +37,6 @@ class Jugador {
     cercaImpacto() {
         this.score-=3;
     }
+    
 }
 export default Jugador;

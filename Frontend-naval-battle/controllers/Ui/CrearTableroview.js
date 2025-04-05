@@ -3,12 +3,13 @@ import { Acorazado, Destructor, PortaAviones, Submarino } from "../../models/Bar
 import Jugador from "../../models/Jugador.js";
 
 
+
 // Esperamos a que el DOM esté completamente cargado antes de ejecutar el código
 document.addEventListener("DOMContentLoaded", function () {
 
 
     // VARIABLES DE ESTADO DEL JUEGO
-    let turno = 0;
+    let turno = 0; // 0 para jugador humano y 1 para jugador enemigo
     let size = parseInt(document.getElementById("inputTableroPc").value) || 10;
     let esHorizontal = false;
     let barcoSeleccionado = null;
@@ -80,6 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
         
         // Generamos el tablero visual y los botones
         generarTablero("TablaUsuario", size);
+        crearBotonesBarcos();
         crearIniciarJuegobtn("btnEntornoJugar");
         console.log("tablero del jugador creado", tableroJugador);
         console.log("tablero del bot creado", tableroEnemigo);
@@ -166,11 +168,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-
     // FUNCIÓN PARA SELECCIONAR UN BARCO
 
-
-    function seleccionarBarco(e) {
+    function seleccionarBarco(e) { //evento del click - Saber qué elemento fue clickeado (e.currentTarget) - Sacar el tipo de barco desde data-tipo - usando los objetos de barcos
+        
         const tipoBarco = e.currentTarget.dataset.tipo; // Obtenemos el tipo de barco
         const datosBarco = barcosDisponibles[tipoBarco]; // Obtenemos los datos del barco
 
@@ -184,7 +185,6 @@ document.addEventListener("DOMContentLoaded", function () {
         document.querySelectorAll('.barco-seleccionable').forEach(el => {
             el.classList.remove('barco-seleccionado');
         });
-
         // Seleccionamos este barco
         e.currentTarget.classList.add('barco-seleccionado');
         barcoSeleccionado = new datosBarco.clase(); // Creamos una nueva instancia del barco
@@ -214,24 +214,17 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // Verificamos colisiones con otros barcos
-        for (let i = 0; i < tamaño; i++) {
-            const celdaFila = direccion === "horizontal" ? fila : fila + i;
-            const celdaColumna = direccion === "horizontal" ? columna + i : columna;
-            
-            if (tableroJugador.matriz[celdaFila][celdaColumna] === "b") {
-                alert("¡Ya hay un barco en esta posición!");
-                return;
-            }
+        // Verificamos colisiones con otros barcos y colocamos la posicion en la matriz logica
+        if (tableroJugador.colocarBarcoLogico(fila, columna, tamaño, direccion)) {
+            alert("¡Ya hay un barco en esta posición!");
+            return;
         }
+        
 
         // Colocamos el barco en el tablero
         for (let i = 0; i < tamaño; i++) {
             const celdaFila = direccion === "horizontal" ? fila : fila + i;
             const celdaColumna = direccion === "horizontal" ? columna + i : columna;
-            
-            // Marcamos la posición en la matriz lógica
-            tableroJugador.matriz[celdaFila][celdaColumna] = "b";
             
             // Actualizamos la representación visual
             const filaLetra = String.fromCharCode(65 + celdaFila);
@@ -276,12 +269,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 return;
             }
             
-            // Verificamos que el jugador haya ingresado un nombre
-            if (!NickName.value.trim()) {
-                alert("¡Ingresa un nickname!");
-                return;
-            }
-
             console.log("Iniciando batalla...");
             // Aquí iría la lógica para comenzar el juego
         });
@@ -306,6 +293,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(`Modo: ${esHorizontal ? 'horizontal' : 'vertical'}`);
         }
     });
+
 
     // EVENTO PARA CREAR EL TABLERO
     botonCrear.addEventListener('click', crearTablero);
