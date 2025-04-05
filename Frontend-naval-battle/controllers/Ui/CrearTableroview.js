@@ -2,8 +2,10 @@ import Tablero from "../../models/Tablero.js";
 import { Acorazado, Destructor, PortaAviones, Submarino } from "../../models/Barco/barcosCondensador.js";
 import Jugador from "../../models/Jugador.js";
 
+
 // Esperamos a que el DOM esté completamente cargado antes de ejecutar el código
 document.addEventListener("DOMContentLoaded", function () {
+
 
     // VARIABLES DE ESTADO DEL JUEGO
     let turno = 0;
@@ -37,10 +39,10 @@ document.addEventListener("DOMContentLoaded", function () {
      * - img: Ruta a la imagen del barco
      */
     const barcosDisponibles = {
-        PortaAviones: { cantidad: 1, clase: PortaAviones, img: "../views/assets/PortaAviones.png" },
-        Acorazado: { cantidad: 1, clase: Acorazado, img: "../views/assets/Acorazado.jpg" },
-        Submarino: { cantidad: 2, clase: Submarino, img: "../views/assets/Submarino.jpg" },
-        Destructor: { cantidad: 2, clase: Destructor, img: "../views/assets/Destructor.jpg" }
+        PortaAviones: { cantidad: 1, clase: PortaAviones, img: "PortaAviones.png" },
+        Acorazado: { cantidad: 1, clase: Acorazado, img: "Acorazado.jpg" },
+        Submarino: { cantidad: 2, clase: Submarino, img: "Submarino.jpg" },
+        Destructor: { cantidad: 2, clase: Destructor, img: "Destructor.jpg" }
     };
 
 
