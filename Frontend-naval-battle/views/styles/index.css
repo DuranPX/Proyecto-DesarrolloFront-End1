@@ -333,6 +333,7 @@ body {
 
 #TablaUsuario {
     background: url(../assets/2488ff9d-da3e-4099-830e-cd18711b340a.gif);
+    z-index: 20;
     background-position: center;
     background-size: cover;
     border: 2px solid;
@@ -485,6 +486,11 @@ body {
 
 #btnBatalla {
     margin-top: 10px;
+}
+
+.celda-barco{
+    z-index: 0;
+    background: rgb(0, 102, 210);
 }
 
 /*INFORMACION IMPORTANTE: relacionado con flagsResponse.js(no modificar- ajustar a sus pantallas)*/
