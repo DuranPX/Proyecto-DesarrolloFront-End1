@@ -1,5 +1,5 @@
-import Tablero from "../models/Tablero.js";
-import { Acorazado, Destructor, PortaAviones, Submarino } from "../models/barcosCondensador.js";
+import Tablero from "../../models/Tablero.js";
+import { Acorazado, Destructor, PortaAviones, Submarino } from "../../models/Barco/barcosCondensador.js";
 
 document.addEventListener("DOMContentLoaded", function () {
     let botonCrear = document.getElementById("btnCrearPc");
@@ -51,7 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     let filaLetra = String.fromCharCode(64 + fila); // Convierte número en letra
                     td.id = `celda-${filaLetra}-${col}`; // Ejemplo: celda-A-1, celda-B-2
                     td.classList.add("celda");
-                    td.onclick = () => marcarCelda(td);
                 }
 
                 tr.appendChild(td);
@@ -78,7 +77,6 @@ document.addEventListener("DOMContentLoaded", function () {
     function UbicarBarco(tamañoBarco, fila, columna) {
         for (let index = 0; index < array.length; index++) {
             const element = array[index];
-
         }
     }
     //alerta de suficientes barcos de tal tipo colocados 

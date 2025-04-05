@@ -1,3 +1,5 @@
+import TableroService from "../controllers/API/TableroService";
+
 class Tablero {
     constructor(filas, columnas) {
         this.filas = filas;
@@ -15,36 +17,42 @@ class Tablero {
 
     verificarImpacto(f, c) {
         const casilla = this.matriz[f][c];
+        const estadoDisparo = null;
 
-        if (casilla === a) {
-            FalloImpacto();
-            return a;
-        } else if (casilla === b) {
-            AtacoBarco();
-            return p;
-        } else if (casilla === a-b) {
-            cercaImpacto();
-            return c; 
+        // Verificar si hay impacto directo
+        if (casilla !== 'a') {
+            return estadoDisparo = 1; //El número 1 es cuando impacta directamente
         }
+
+        // Revisar casillas a la redonda
+        const direcciones = [
+            [-1, 0], [1, 0], [0, -1], [0, 1], // arriba, abajo, izquierda, derecha
+            [-1, -1], [-1, 1], [1, -1], [1, 1] // diagonales
+        ];
+
+        for (let [dx, dy] of direcciones) {
+            const nuevaFila = fila + dx;
+            const nuevaCol = columna + dy;
+
+            if (
+                nuevaFila >= 0 && nuevaFila < this.filas &&
+                nuevaCol >= 0 && nuevaCol < this.columnas
+            ) {
+                if (this.matriz[nuevaFila][nuevaCol] !== 'a') {
+                    return estadoDisparo = 2; //El número 2 es cuando impacta en una casilla alrededor
+                }
+            }
+        }
+        return estadoDisparo = 0; //El número 0 es cuando no impacta
     }
 
     colocarBarcoLogico() {
         
     }
-        exportarTablero() {
-        fetch("http://localhost:5000/exportar_tablero")
-        .then(response => response.blob())
-        .then(blob => {
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = "tablero.csv";
-            document.body.appendChild(a);
-            a.click();
-            a.remove();
-        })
-        .catch(error => console.error("Error al descargar el tablero:", error));
+
+    exportarTablero(nombre) {
+        TableroService.Exportar_Tablero(nombre,this.matriz);
     }
-    
+
 }
 export default Tablero;

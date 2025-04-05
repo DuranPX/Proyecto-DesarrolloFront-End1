@@ -41,8 +41,9 @@ def load_scores():
             return json.load(file)
     return {}
 
-def exportarMapa_csv(tablero):
-    with open("TableroExport",mode="w",newline="") as mapa:
+def exportarMapa_csv(nombre,tablero):
+    archivo = f"{nombre}_tablero.csv"
+    with open(archivo,mode="w",newline="") as mapa:
         escribir= csv.writer(mapa)
         escribir.writerows(tablero)   
 
@@ -68,7 +69,6 @@ def score_recorder():
     save_scores(scores)
     return jsonify({"message": "Score recorded successfully"})
 
-
 @app.route("/ranking", methods=["GET"])
 def ranking():
     scores = load_scores()
@@ -82,8 +82,11 @@ def get_countries():
     return jsonify(countries)
 
 @app.route("/exportar_tablero", methods=["GET"])
-def descargar_tablero(mapa):
-    archivo = exportarMapa_csv(mapa)
+def descargar_tablero():
+    nombre = request.args.get("nombre");
+    matriz_json = request.args.get("matriz");
+    matriz = json.loads(matriz_json)
+    archivo = exportarMapa_csv(nombre,matriz);
     return send_file(archivo, as_attachment=True)
 
 
