@@ -1,4 +1,4 @@
-import { Barco } from "./Barco.js";
+import { Barco } from "../Barco.js";
 
 export class PortaAviones extends Barco {
     constructor() {

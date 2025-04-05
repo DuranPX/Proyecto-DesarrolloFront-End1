@@ -1,4 +1,4 @@
-import TableroService from "../controllers/API/TableroService";
+import TableroService from "../controllers/API/TableroService.js";
 
 class Tablero {
     constructor(filas, columnas) {
@@ -13,6 +13,36 @@ class Tablero {
             Array.from({ length: this.columnas }, () => "a")
         );
         return matriz;
+    }
+
+    verificarSolapamiento(f, c) {
+        if (this.matriz[f][c] === "b") {
+            return false;
+        } else if (this.matriz[f][c] === "a") {
+            return true;
+        }
+    }
+    
+    colocarBarcoLogico(f, c, tamBarco, orientacionBarco) {
+        if (orientacionBarco === "Vertical") {
+            for (let i = 0; i < tamBarco; i++) {
+                console.log(this.matriz[f + i][c]);
+                if (this.verificarSolapamiento(f + i, c) === true) {
+                    this.matriz[f + i][c] = "b";
+                } else {
+                    return console.log("Hay solapamiento bobo hijueputa");
+                }
+            }
+        } else if (orientacionBarco === "Horizontal") {
+            for (let i = 0; i < tamBarco; i++) {
+                console.log(this.matriz[f][c + i]);
+                if (this.verificarSolapamiento(f, c + i) === true) {
+                    this.matriz[f][c + i] = "b";
+                } else {
+                    return console.log("Hay solapamiento bobo hijueputa");
+                }
+            }
+        }
     }
 
     verificarImpacto(f, c) {
@@ -46,9 +76,6 @@ class Tablero {
         return estadoDisparo = 0; //El número 0 es cuando no impacta
     }
 
-    colocarBarcoLogico() {
-        
-    }
 
     exportarTablero(nombre) {
         TableroService.Exportar_Tablero(nombre,this.matriz);

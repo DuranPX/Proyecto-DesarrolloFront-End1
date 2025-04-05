@@ -1,16 +1,33 @@
 import Tablero from "../../models/Tablero.js";
 import { Acorazado, Destructor, PortaAviones, Submarino } from "../../models/Barco/barcosCondensador.js";
+import Jugador from "../../models/Jugador.js";
 
 document.addEventListener("DOMContentLoaded", function () {
+
+    //variable innamobible para el turno actual del juego
+    let turno = 0; //0 usuario - 1 enemigo
+
+    //Html Views - variables
     let botonCrear = document.getElementById("btnCrearPc");
     let size = parseInt(document.getElementById("inputTableroPc").value) || 10;
+    let NickName = document.getElementById("input-login");
     let tableroJugador = new Tablero(size, size);
     let tableroEnemigo = new Tablero(size, size);
 
+    //Barcos Logic - variables
     let PortaAvion = new PortaAviones();
     let acorazado = new Acorazado();
     let submarinos = [new Submarino(), new Submarino()];
     let destructores = [new Destructor(), new Destructor()];
+
+    //jugadores Logic -variables
+
+    let JugadorHumano=new Jugador(NickName, null, false);
+    let JugadorIA =new Jugador(null, null, true);
+
+    //esta funcion crea el tablero tanto de manera logica como visual mediante la funcion general tablero 
+    // - 
+    //tambien crea el boton iniciar juego
 
     function crearTablero() {
         let size = parseInt(document.getElementById("inputTableroPc").value) || 10;
@@ -24,6 +41,8 @@ document.addEventListener("DOMContentLoaded", function () {
         crearIniciarJuegobtn("btnEntornoJugar");
         console.log("tablero del jugador creado", tableroJugador);
         console.log("tablero del bot creado", tableroEnemigo);
+        tableroJugador.colocarBarcoLogico(0, 0, 3, "Vertical");
+        console.log("tablero de jugador modificado con barco", tableroJugador);
     }
 
     function generarTablero(id, size) {
@@ -57,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             tabla.appendChild(tr);
         }
-
+        
     }
 
     function crearIniciarJuegobtn(claseboton) {
@@ -74,13 +93,11 @@ document.addEventListener("DOMContentLoaded", function () {
         })
     }
 
-    function UbicarBarco(tamañoBarco, fila, columna) {
-        for (let index = 0; index < array.length; index++) {
-            const element = array[index];
-        }
-    }
+    
     //alerta de suficientes barcos de tal tipo colocados 
     botonCrear.addEventListener("click", function () {
         crearTablero();
+        console.log("se creo el tablero");
+        console.error("no se creo el tablero",error);
     });
 });
