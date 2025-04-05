@@ -244,6 +244,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Actualizamos los contadores
         barcosDisponibles[tipoBarco].colocados++;
         crearBotonesBarcos(); // Actualizamos la interfaz
+        barcoSeleccionado = null;
     }
 
     // FUNCIÓN PARA CREAR EL BOTÓN DE INICIAR JUEGO
