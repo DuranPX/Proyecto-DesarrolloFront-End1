@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", async () => {
             const selectedCountry = document.getElementById("selectedCountry");
             const dropdownButton = document.getElementById("dropdownMenuButton");
             const dropdownMenu = document.getElementById("countryList");
+            const codeBandera= document.getElementById("CodigoBandera_user");
 
             //ubicar imagenes en el menu
             countries.forEach(country => {
@@ -33,7 +34,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 if (target) {
                     const countryCode = target.getAttribute("data-code");
                     const countryName = target.getAttribute("data-name");
-
+                    codeBandera.textContent= countryCode;
                     selectedFlag.src = `https://flagcdn.com/w320/${countryCode}.png`;
                     selectedFlag.hidden = false;
                     selectedCountry.textContent = countryName;

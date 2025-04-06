@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", async ()=> {
         }
     }
 
+
     Object.values(elementos.ranking).forEach(el => el?.addEventListener("click", irARanking));
     Object.values(elementos.creditos).forEach(el => el?.addEventListener("click", verCreditos));
     Object.values(elementos.ModoJuego).forEach(el => el?.addEventListener("click", verEntornoJuego));

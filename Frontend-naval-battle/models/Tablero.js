@@ -16,6 +16,10 @@ class Tablero {
         return matriz;
     }
 
+    get_matriz() {
+        return this.matriz;
+    }
+
     verificarSolapamiento(f, c, tamBarco, orientacionBarco) {
         let solapamiento = true;
         for (let i = 0; i < tamBarco; i++) {
@@ -61,10 +65,11 @@ class Tablero {
 
     verificarImpacto(f, c) {
         const casilla = this.matriz[f][c];
-        const estadoDisparo = null;
+        let estadoDisparo = null;
 
         // Verificar si hay impacto directo
-        if (casilla !== 'a') {
+        if (casilla !== 'a' && casilla !== 'F' && casilla !== 'b-h') {
+            this.matriz[f][c] = "b-h";
             return estadoDisparo = 1; //El número 1 es cuando impacta directamente
         }
 
@@ -75,25 +80,27 @@ class Tablero {
         ];
 
         for (let [dx, dy] of direcciones) {
-            const nuevaFila = fila + dx;
-            const nuevaCol = columna + dy;
+            const nuevaFila = f + dx;
+            const nuevaCol = c + dy;
 
             if (
                 nuevaFila >= 0 && nuevaFila < this.filas &&
                 nuevaCol >= 0 && nuevaCol < this.columnas
             ) {
                 if (this.matriz[nuevaFila][nuevaCol] !== 'a') {
+                    this.matriz[f][c] = "a-c";
                     return estadoDisparo = 2; //El número 2 es cuando impacta en una casilla alrededor
                 }
             }
         }
+        this.matriz[f][c] = "F";
         return estadoDisparo = 0; //El número 0 es cuando no impacta
     }
 
 
-    exportarTablero(nombre) {
+    exportarTablero(nombre,tablero) {
         let tableroExport = new TableroService();
-        tableroExport.Exportar_Tablero(nombre , this.tablero);
+        tableroExport.Exportar_Tablero(nombre , tablero);
     }
 
 }
