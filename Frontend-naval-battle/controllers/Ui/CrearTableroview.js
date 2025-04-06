@@ -1,6 +1,7 @@
 import Tablero from "../../models/Tablero.js";
 import { Acorazado, Destructor, PortaAviones, Submarino } from "../../models/Barco/barcosCondensador.js";
 import Jugador from "../../models/Jugador.js";
+import Clima from "../../models/Clima.js";
 
 
 
@@ -13,6 +14,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let size = parseInt(document.getElementById("inputTableroPc").value) || 10;
     let esHorizontal = false;
     let barcoSeleccionado = null;
+
+    let guardarClima = new Clima(null,null,null);
 
 
     // ELEMENTOS DEL DOM
@@ -46,6 +49,13 @@ document.addEventListener("DOMContentLoaded", function () {
         Destructor: { cantidad: 2, clase: Destructor, img: "Destructor.jpg" }
     };
 
+    const climasDisponibles = {
+        Despejado: { nombre: "Despejado", descripcion: "Pacífico",  img: "oceanodespejado.jpg", lat: 0 , lon: -160 },
+        Nocturno: { nombre: "Nocturno", descripcion: "Mar muerto", img: "oceano12.webp", lat: 31.55 , lon: 35.47  },
+        Soleado: { nombre: "Soleado", descripcion: "Báltico", img: "oceanosoleado.jpg", lat: 54.35 , lon: 18.65  },
+        Antartida: { nombre: "Antartida", descripcion: "Antártico", img: "Antartico.jpg", lat: -90 , lon: 0  },
+    }
+
 
     // INICIALIZACIÓN DE JUGADORES
 
@@ -64,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function crearTablero() {
         // Obtenemos el tamaño del tablero del input
         const newSize = parseInt(document.getElementById("inputTableroPc").value) || 10;
-        
+
         // Validamos que el tamaño sea correcto
         if (isNaN(newSize) || newSize < 10 || newSize > 20) {
             alert("El tamaño del tablero debe ser entre 10 y 20");
@@ -78,10 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
         size = newSize;
         tableroJugador = new Tablero(size, size);
         tableroEnemigo = new Tablero(size, size);
-        
+
         // Generamos el tablero visual y los botones
         generarTablero("TablaUsuario", size);
         crearBotonesBarcos();
+        crearBotonesMapas();
         crearIniciarJuegobtn("btnEntornoJugar");
         console.log("tablero del jugador creado", tableroJugador);
         console.log("tablero del bot creado", tableroEnemigo);
@@ -105,12 +116,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (col === 0 && fila > 0) {
                     td.textContent = String.fromCharCode(64 + fila); // Convertimos número a letra
                     td.classList.add("coordenada");
-                } 
+                }
                 // Primera fila (números 1, 2, 3...)
                 else if (fila === 0 && col > 0) {
                     td.textContent = col;
                     td.classList.add("coordenada");
-                } 
+                }
                 // Celdas jugables
                 else if (fila > 0 && col > 0) {
                     const filaLetra = String.fromCharCode(64 + fila);
@@ -119,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     td.dataset.fila = fila - 1; // Guardamos posición en la matriz
                     td.dataset.columna = col - 1;
                     td.onclick = () => colocarBarcoEnCelda(
-                        parseInt(td.dataset.fila), 
+                        parseInt(td.dataset.fila),
                         parseInt(td.dataset.columna)
                     );
                 }
@@ -171,7 +182,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // FUNCIÓN PARA SELECCIONAR UN BARCO
 
     function seleccionarBarco(e) { //evento del click - Saber qué elemento fue clickeado (e.currentTarget) - Sacar el tipo de barco desde data-tipo - usando los objetos de barcos
-        
+
         const tipoBarco = e.currentTarget.dataset.tipo; // Obtenemos el tipo de barco
         const datosBarco = barcosDisponibles[tipoBarco]; // Obtenemos los datos del barco
 
@@ -219,13 +230,13 @@ document.addEventListener("DOMContentLoaded", function () {
             alert("¡Ya hay un barco en esta posición!");
             return;
         }
-        
+
 
         // Colocamos el barco en el tablero
         for (let i = 0; i < tamaño; i++) {
             const celdaFila = direccion === "horizontal" ? fila : fila + i;
             const celdaColumna = direccion === "horizontal" ? columna + i : columna;
-            
+
             // Actualizamos la representación visual
             const filaLetra = String.fromCharCode(65 + celdaFila);
             const celda = document.getElementById(`celda-${filaLetra}-${celdaColumna + 1}`);
@@ -247,7 +258,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function crearIniciarJuegobtn() {
         const contenedor = document.getElementById("contenedortablero-pc");
-        
+
         // Verificamos que el botón no exista ya
         if (document.getElementById("btnBatalla")) return;
 
@@ -256,19 +267,19 @@ document.addEventListener("DOMContentLoaded", function () {
         btn.id = "btnBatalla";
         btn.className = "btn btn-danger";
         btn.textContent = "Ir a la batalla!";
-        
+
         // Asignamos el evento de click
         btn.addEventListener('click', () => {
             // Verificamos que todos los barcos estén colocados
             const todosColocados = Object.values(barcosDisponibles).every(
                 b => b.colocados >= b.cantidad
             );
-            
+
             if (!todosColocados) {
                 alert("¡Coloca todos los barcos primero!");
                 return;
             }
-            
+
             console.log("Iniciando batalla...");
             // Aquí iría la lógica para comenzar el juego
         });
@@ -286,13 +297,69 @@ document.addEventListener("DOMContentLoaded", function () {
                 alert("Selecciona un barco primero");
                 return;
             }
-            
+
             // Cambiamos la dirección
             esHorizontal = !esHorizontal;
             barcoSeleccionado.cambiarDireccion();
             console.log(`Modo: ${esHorizontal ? 'horizontal' : 'vertical'}`);
         }
     });
+
+    //Funcion para crear las cartas de los mapas
+    function crearBotonesMapas() {
+        const contenedorMapas = document.getElementById("contenedor-mapas");
+        contenedorMapas.innerHTML = ''; // Limpiamos el contenedor
+        
+        // Creamos un botón para cada tipo de mapa disponible
+        Object.entries(climasDisponibles).forEach(([_, datos]) => {
+            const mapasHTML = `
+                <div class="col-lg-3 col-md-4 col-6">
+                    <div class="carta mapa-seleccionable" 
+                         data-lat="${datos.lat}" 
+                         data-lon="${datos.lon}">
+                        <img src="assets/${datos.img}" alt="${datos.nombre}" class="img-fluid">
+                        <div class="info">
+                            <h3>${datos.nombre}</h3>
+                            <p>${datos.descripcion}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            contenedorMapas.insertAdjacentHTML('beforeend', mapasHTML);
+        });
+        
+        // Asignamos eventos a los botones de mapas (Sin esto la carta no actua como boton)
+        document.querySelectorAll('.mapa-seleccionable').forEach(carta => {
+            carta.addEventListener('click', seleccionarMapa);
+        });
+
+  
+    }
+
+    //
+
+    function seleccionarMapa(e) {
+        const elemento = e.currentTarget;
+        const lat = parseFloat(elemento.dataset.lat);
+        const lon = parseFloat(elemento.dataset.lon);
+
+        console.log("Latitud:", lat);
+        console.log("Longitud:", lon);
+
+        Clima.obtenerDatos(lat, lon).then(clima => {
+            if (clima) {
+                console.log(`Temperatura: ${clima.temperatura}°C`);
+                console.log(`Viento: ${clima.viento} m/s`);
+                console.log(`Dirección del viento: ${clima.direccionViento}°`);
+
+                guardarClima = new Clima (clima.temperatura,clima.viento,clima.direccionViento);
+            }
+        });
+
+    }
+    
+    
+
 
 
     // EVENTO PARA CREAR EL TABLERO
