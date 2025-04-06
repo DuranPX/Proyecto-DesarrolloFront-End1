@@ -85,6 +85,31 @@ document.addEventListener("DOMContentLoaded", function () {
         crearIniciarJuegobtn("btnEntornoJugar");
         console.log("tablero del jugador creado", tableroJugador);
         console.log("tablero del bot creado", tableroEnemigo);
+        crearTableroEnemigo();
+        console.log("tablero del jugador creado", tableroJugador);
+        console.log("tablero del bot creado", tableroEnemigo);
+    }
+
+    function crearTableroEnemigo() {
+        const tamBarcos = [2, 2, 3, 3, 4, 5]; // Tamaños de barcos posibles
+        for (let i = 0; i < tamBarcos.length; i++) {
+            let colocado = false;
+    
+            while (!colocado) {
+                let fila = Math.floor(Math.random() * size); // Fila aleatoria
+                let columna = Math.floor(Math.random() * size); // Columna aleatoria
+                let orientacionBarco = Math.random() >= 0.5 ? "horizontal" : "vertical"; // Orientación aleatoria
+    
+                // Verificamos si el barco cabe dentro del tablero
+                if (orientacionBarco === "vertical" && fila + tamBarcos[i] > size) continue;
+                if (orientacionBarco === "horizontal" && columna + tamBarcos[i] > size) continue;
+    
+                // Intentamos colocarlo. Si devuelve false, se colocó bien.
+                if (!tableroEnemigo.colocarBarcoLogico(fila, columna, tamBarcos[i], orientacionBarco)) {
+                    colocado = true; // Barco colocado con éxito
+                }
+            }
+        }
     }
 
 

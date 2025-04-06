@@ -16,36 +16,47 @@ class Tablero {
         return matriz;
     }
 
-    verificarSolapamiento(f, c) {
-        if (this.matriz[f][c] === "b") {
-            return false;
-        } else if (this.matriz[f][c] === "a") {
-            return true;
+    verificarSolapamiento(f, c, tamBarco, orientacionBarco) {
+        let solapamiento = true;
+        for (let i = 0; i < tamBarco; i++) {
+            if (orientacionBarco === "vertical") {
+                if (this.matriz[f + i][c] === "b") {
+                    return false;
+                } else if (this.matriz[f + i][c] === "a") {
+                    solapamiento = true;
+                }
+            } else if (orientacionBarco === "horizontal") {
+                if (this.matriz[f][c + i] === "b") {
+                    return false;
+                } else if (this.matriz[f][c + i] === "a") {
+                    solapamiento = true;
+                }
+            }
         }
-        return true;
+        return solapamiento;
     }
     
     colocarBarcoLogico(f, c, tamBarco, orientacionBarco) {
         if (orientacionBarco === "vertical") {
-            for (let i = 0; i < tamBarco; i++) {
-                if (this.verificarSolapamiento(f + i, c) === true) {
+            if (this.verificarSolapamiento(f, c, tamBarco, orientacionBarco) === true) {
+                for (let i = 0; i < tamBarco; i++) {
                     this.matriz[f + i][c] = "b";
-                } else {
-                    console.log("Hay solapamiento bobo hijueputa");
-                    return  true;
                 }
+            } else {
+                console.log("Hay solapamiento bobo hijueputa");
+                return  true;
             }
         } else if (orientacionBarco === "horizontal") {
-            for (let i = 0; i < tamBarco; i++) {
-                if (this.verificarSolapamiento(f, c + i) === true) {
+            if (this.verificarSolapamiento(f, c, tamBarco, orientacionBarco) === true) {
+                for (let i = 0; i < tamBarco; i++) {
                     this.matriz[f][c + i] = "b";
-                } else {
-                    console.log("Hay solapamiento bobo hijueputa");
-                    return  true;
                 }
+            } else {
+                console.log("Hay solapamiento bobo hijueputa");
+                return  true;
             }
-            return false;
         }
+        return false;
     }
 
     verificarImpacto(f, c) {

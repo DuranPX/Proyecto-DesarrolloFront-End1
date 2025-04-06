@@ -550,11 +550,6 @@ img {
     transform: translateY(-5px);
 }
 
-/*relacionado con juego en pantalla*/
-#juego-pc {
-    display: none;
-}
-
 .advice-barcos{
     font-family: 'Stella Lumina', sans-serif;
     display: flex;
@@ -563,4 +558,9 @@ img {
     color: #052f57c5;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     user-select: none;
+}
+
+/*relacionado con juego en pantalla*/
+#juego-pc {
+    display: none;
 }
