@@ -44,8 +44,8 @@ class Tablero {
                     return  true;
                 }
             }
-            return false;
         }
+        return false;
     }
 
     verificarImpacto(f, c) {
