@@ -468,9 +468,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
     }
     //funcion para manejar el turno y ataques de la IA
+    
     function manejarTurno() {
+        console.log("Tamaño del tablero", size);
         if (turno === 1) {
-            const { fila, columna } = JugadorIA.elegirDisparo();
+            const fila = JugadorIA.elegirDisparo(size);
+            const columna = JugadorIA.elegirDisparo(size);
+            console.log("Return de elegirDisparo", fila, columna);
             atacar(fila, columna, "usuario");
         }
     }
@@ -524,15 +528,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     }
 
                     console.log("centinela para if ataque y turno en: ", turno);
-                    if (id === "enemyTablero_pc" && turno === 0) {
+                    if (id === "enemyTablero_pc") {
                         td.addEventListener("click", () => {
+                            if (turno !== 0) return; // solo permite ataque si es turno del jugador                    
                             const filaAtacada = parseInt(td.dataset.fila);
                             const columnaAtacada = parseInt(td.dataset.columna);
                             const idAtacado = td.dataset.jugador;
                             console.log("tomamos las variables para atacar", filaAtacada, columnaAtacada, idAtacado);
-                            atacar(filaAtacada, columnaAtacada, idAtacado); // llama a tu función
-                            manejarTurno(); // si turno cambio a 1 atacara la ia
-                        });
+                            atacar(filaAtacada, columnaAtacada, idAtacado);
+                        });
                     }
                 }
                 tr.appendChild(td);
@@ -544,6 +548,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function atacar(fila, columna, id) { // fila atacado, columna atacada y id del tablero atacado
         if (id === "enemigo") {
+            console.log("Estamos atacando al enemigo");
             let response = tableroEnemigo.verificarImpacto(fila, columna);
             switch (response) {
                 case 1:
@@ -553,6 +558,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     JugadorHumano.cercaImpacto();
                     turno = 1; //como fallo el impacto cambia de turno
                     break;
+                case -1:
+                    turno = 1;
                 default:
                     JugadorHumano.FalloImpacto();
                     turno = 1; //como fallo el impacto cambia de turno
@@ -562,6 +569,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
             generarTableroUser(seccionTableroEnemigo.id, tableroEnemigo.get_matriz());
         } else if (id === "usuario") {
+            console.log("Estamos atacando al usuario");
             let response = tableroJugador.verificarImpacto(fila, columna);
             switch (response) {
                 case 1:
@@ -571,6 +579,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     JugadorIA.cercaImpacto();
                     turno = 0; //como fallo el impacto cambia de turno
                     break;
+                case -1:
+                    turno = 1;
                 default:
                     JugadorIA.FalloImpacto();
                     turno = 0; //como fallo el impacto cambia de turno
@@ -579,6 +589,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
             generarTableroUser(seccionTableroJugador.id, tableroJugador.get_matriz());
         }
+        manejarTurno();
     }
 
     // funcion para actualizar el puntaje del jugador en la pantalla de juego

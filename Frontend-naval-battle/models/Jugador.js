@@ -1,4 +1,5 @@
 import RankingService from "../controllers/API/rankingServices.js";
+import Tablero from "../models/Tablero.js";
 
 class Jugador {
 
@@ -59,9 +60,16 @@ class Jugador {
         this.score -= 3;
     }
 
+    elegirDisparo(size) {
+        // Genera números enteros entre 0 y size-1
+        let celda = 0;
+        celda = Math.floor(Math.random() * size); // Columna aleatoria
+        console.log("Dentro de elegirDisparo:", celda); // Verifica aquí
+        return celda; // Retorna un objeto con claves numéricas
+    }
+
     getScore() {
         return this.score;
     }
-
 }
 export default Jugador;

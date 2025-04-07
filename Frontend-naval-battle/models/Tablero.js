@@ -20,6 +20,10 @@ class Tablero {
         return this.matriz;
     }
 
+    setMatriz(matriz) {
+        this.matriz = matriz;
+    }
+
     verificarSolapamiento(f, c, tamBarco, orientacionBarco) {
         let solapamiento = true;
         for (let i = 0; i < tamBarco; i++) {
@@ -64,37 +68,49 @@ class Tablero {
     }
 
     verificarImpacto(f, c) {
+        console.log("Verificando impacto en ", f, c);
         const casilla = this.matriz[f][c];
         let estadoDisparo = null;
-
-        // Verificar si hay impacto directo
-        if (casilla !== 'a' && casilla !== 'F' && casilla !== 'b-h') {
-            this.matriz[f][c] = "b-h";
-            return estadoDisparo = 1; //El número 1 es cuando impacta directamente
+    
+        // Si la casilla ya tiene un estado asignado, retornar -1 o un código especial
+        if (casilla === 'b-h' || casilla === 'a-c' || casilla === 'F') {
+            console.log("Casilla ya marcada, no se puede cambiar");
+            return estadoDisparo = -1; // -1 indica que no se hizo cambio
         }
-
+    
+        // Verificar si hay impacto directo
+        if (casilla !== 'a' && casilla !== 'F' && casilla !== 'b-h' && casilla !== 'a-c') {
+            this.matriz[f][c] = "b-h";
+            return estadoDisparo = 1; // Impacto directo
+        }
+    
         // Revisar casillas a la redonda
         const direcciones = [
             [-1, 0], [1, 0], [0, -1], [0, 1], // arriba, abajo, izquierda, derecha
             [-1, -1], [-1, 1], [1, -1], [1, 1] // diagonales
         ];
-
+    
         for (let [dx, dy] of direcciones) {
             const nuevaFila = f + dx;
             const nuevaCol = c + dy;
-
+    
+            // Verificar límites del tablero
             if (
                 nuevaFila >= 0 && nuevaFila < this.filas &&
                 nuevaCol >= 0 && nuevaCol < this.columnas
             ) {
-                if (this.matriz[nuevaFila][nuevaCol] !== 'a') {
+                const casillaAdyacente = this.matriz[nuevaFila][nuevaCol];
+                // Si encontramos un barco (b) o un barco impactado (b-h) alrededor
+                if (casillaAdyacente === 'b' || casillaAdyacente === 'b-h') {
                     this.matriz[f][c] = "a-c";
-                    return estadoDisparo = 2; //El número 2 es cuando impacta en una casilla alrededor
+                    return 2; // Impacto alrededor
                 }
             }
         }
+    
+        // Si no hubo impacto directo ni alrededor
         this.matriz[f][c] = "F";
-        return estadoDisparo = 0; //El número 0 es cuando no impacta
+        return estadoDisparo = 0; // Fallo
     }
 
 
