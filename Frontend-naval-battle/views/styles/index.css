@@ -294,13 +294,14 @@ body {
 
 /*CSS de la tabla del clima */
 .tablaClima{
-    display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.2);
     color: white;
     border-radius: 15px;
-    padding: 30px;
+    object-fit: contain;
+    object-fit: cover;
+
 }
 
 #encabezado-clima{
@@ -308,9 +309,8 @@ body {
 }
 
 #encabezado-clima th{
-    padding: 7px;
-    font-weight: 500;
-    text-transform: uppercase;
+    padding: 1px;
+    font-weight: 300;
     border-radius: 7px;
 }
 
@@ -319,7 +319,7 @@ body {
 }
 
 #cuerpo-clima td{
-    padding: 5px;
+    padding: 2px;
     font-weight: 300;
     border-radius: 7px;
 }
@@ -327,7 +327,7 @@ body {
 .titulo{
     color: black;
     text-transform: uppercase;
-    font-weight: 700;
+    font-weight: 750;
 }
 
 .inputTablero-pc {

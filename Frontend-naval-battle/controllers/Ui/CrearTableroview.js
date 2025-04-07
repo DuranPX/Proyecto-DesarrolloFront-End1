@@ -469,11 +469,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     <table id="tablaClima">
                         <thead id="encabezado-clima" class="text-center">
                             <tr>
-                                <th>Clima Elegigo</th>
+                                <th>Clima</th>
                                 <th>Lugar</th>
-                                <th>Temperatura (°C)</th>
-                                <th>Velocidad del Viento (m/s)</th>
-                                <th>Dirección del viento (°)</th>
+                                <th>Temp (°C)</th>
+                                <th>Viento (m/s)</th>
+                                <th>Dirección V (°)</th>
                             </tr>
                         </thead>
                         <tbody class="text-center" id="cuerpo-clima">
