@@ -15,6 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let esHorizontal = false;
     let barcoSeleccionado = null;
 
+    const tablaClima = document.getElementById("tabla-Clima");
+    let climaSeleccionado = null;
     let guardarClima = new Clima(null, null, null);
 
 
@@ -342,6 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 generarTableroUser(seccionTableroEnemigo.id, tableroEnemigo.get_matriz());
                 generarTableroUser(seccionTableroJugador.id, tableroJugador.get_matriz());
                 console.log("se supone que genero el tablero");
+                seleccionarMapa();
             }
 
 
@@ -402,36 +405,27 @@ document.addEventListener("DOMContentLoaded", function () {
     //Funcion para seleccionar el mapa y cargar el clima
 
     function seleccionarMapa(e) {
-        // 1. OBTENER DATOS DEL MAPA SELECCIONADO
-        // currentTarget es el elemento que disparó el evento (el mapa clickeado)
         const elemento = e.currentTarget;
         
-        const lat = parseFloat(elemento.dataset.lat); // Convertimos a número la latitud
-        const lon = parseFloat(elemento.dataset.lon); // Convertimos a número la longitud
+        const lat = parseFloat(elemento.dataset.lat);
+        const lon = parseFloat(elemento.dataset.lon);
         
-        // Obtenemos el nombre del clima del título (h3) dentro del elemento clickeado
         const nombreClima = elemento.querySelector('h3').textContent;
-
+    
         console.log("Latitud:", lat);
         console.log("Longitud:", lon);
-
+    
         Clima.obtenerDatos(lat, lon).then(clima => {
-
             if (clima) {
                 console.log(`Temperatura: ${clima.temperatura}°C`);
                 console.log(`Viento: ${clima.viento} m/s`);
                 console.log(`Dirección del viento: ${clima.direccionViento}°`);
-
+    
                 guardarClima = new Clima(clima.temperatura, clima.viento, clima.direccionViento);
             }
-
-            const tablaClima = document.getElementById("tabla-Clima");
-            tablaClima.innerHTML = '';
-        
-            // Convertimos el objeto climasDisponibles en array de valores (esos hace el .values)
-            // y buscamos el que coincide con el nombre del clima seleccionado
-            //.find():Busca en un array el primer elemento que cumple una condición.
-            const climaSeleccionado = Object.values(climasDisponibles).find(c => c.nombre === nombreClima);
+    
+            climaSeleccionado = Object.values(climasDisponibles).find(c => c.nombre === nombreClima);
+    
             const climaHTML = `
 
             <div><h3 class="titulo">Tabla Climatica </h3></div>
@@ -458,11 +452,20 @@ document.addEventListener("DOMContentLoaded", function () {
                     </table>
                 </div>
             `;
-            
-            // 8. INSERTAR LA TABLA EN EL DOM
-            // Insertamos el HTML generado al final del contenedor
-            tablaClima.insertAdjacentHTML('beforeend', climaHTML);
+    
+            // 🔁 Seleccionamos todos los contenedores con la clase 'tablaClima'
+            const contenedores = document.querySelectorAll('.tablaClima');
+            contenedores.forEach(contenedor => {
+                contenedor.innerHTML = ''; // Limpia cada contenedor
+                contenedor.insertAdjacentHTML('beforeend', climaHTML);
+            });
         });
+    }
+    
+
+    //Funcioin mostrar tabla clima
+    function mostrarTablaCLima (){
+
     }
     //funcion para manejar el turno y ataques de la IA
     function manejarTurno() {

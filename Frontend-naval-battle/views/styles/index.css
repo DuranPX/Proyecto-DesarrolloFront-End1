@@ -293,7 +293,7 @@ body {
 }
 
 /*CSS de la tabla del clima */
-#tablaClimatica{
+.tablaClima{
     display: flex;
     align-items: center;
     justify-content: center;
