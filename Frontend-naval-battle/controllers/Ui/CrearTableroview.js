@@ -18,6 +18,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const tablaClima = document.getElementById("tabla-Clima");
     let climaSeleccionado = null;
     let guardarClima = new Clima(null, null, null);
+    let mapaSeleccionado = false;
 
 
     // ELEMENTOS DEL DOM
@@ -28,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const botonGuardarJuego = document.getElementById("guardarBtn-pc");
     const botonexportarMapa = document.getElementById("exportarBtn-pc");
     const botonCrear = document.getElementById("btnCrearPc"); // Botón para crear el tablero
-    
+
 
     // INICIALIZACIÓN DE TABLEROS
 
@@ -67,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // INICIALIZACIÓN DE JUGADORES
 
     let JugadorHumano; // Jugador humano
-    
+
     const JugadorIA = new Jugador("bot_ninja", 0, true); // Jugador IA (computadora)
 
     async function iniciarJugadorHumano(nickname) {
@@ -75,14 +76,14 @@ document.addEventListener("DOMContentLoaded", function () {
         // podés seguir llamando funciones o iniciar lógica si querés
         console.log("Jugador creado:", JugadorHumano);
         actualizar_puntaje();
-        
+
     }
 
     // funcion para crear jugador
-    function recogerNickname(){
+    function recogerNickname() {
         const NickName = document.getElementById("input-login").value;
         iniciarJugadorHumano(NickName)
-        console.log("Nickname:", NickName); 
+        console.log("Nickname:", NickName);
     }
 
 
@@ -100,7 +101,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Validamos que el tamaño sea correcto
         if (isNaN(newSize) || newSize < 10 || newSize > 20) {
-            alert("El tamaño del tablero debe ser entre 10 y 20");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "El tamaño del tablero debe ser entre 10 y 20",
+            });
             return;
         }
 
@@ -237,7 +242,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Verificamos si ya se colocaron todos los barcos de este tipo
         if (datosBarco.colocados >= datosBarco.cantidad) {
-            alert(`Ya colocaste todos los ${tipoBarco}s disponibles`);
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: `Ya colocaste todos los ${tipoBarco}s disponibles`,
+            });
             return;
         }
 
@@ -256,7 +265,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function colocarBarcoEnCelda(fila, columna) {
         // Verificamos que haya un barco seleccionado
         if (!barcoSeleccionado) {
-            alert("Primero selecciona un barco");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "Primero selecciona un barco",
+            });
             return;
         }
 
@@ -266,17 +279,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Validamos que el barco quepa en la posición seleccionada
         if (direccion === "horizontal" && columna + tamaño > size) {
-            alert("No cabe horizontalmente en esta posición");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "No cabe horizontalmente en esta posición",
+            });
             return;
         }
         if (direccion === "vertical" && fila + tamaño > size) {
-            alert("No cabe verticalmente en esta posición");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "No cabe verticalmente en esta posición",
+            });
             return;
         }
 
         // Verificamos colisiones con otros barcos y colocamos la posicion en la matriz logica
         if (tableroJugador.colocarBarcoLogico(fila, columna, tamaño, direccion)) {
-            alert("¡Ya hay un barco en esta posición!");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "¡Ya hay un barco en esta posición!",
+            });
             return;
         }
 
@@ -325,7 +350,18 @@ document.addEventListener("DOMContentLoaded", function () {
             );
 
             if (!todosColocados) {
-                alert("¡Coloca todos los barcos primero!");
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "¡Coloca todos los barcos primero!",
+                });
+                return;
+            } else if (!mapaSeleccionado) {
+                Swal.fire({
+                    icon: "error",
+                    title: "Oops...",
+                    text: "¡Selecciona un mapa primero!",
+                });
                 return;
             } else {
                 console.log("Iniciando batalla...");
@@ -406,26 +442,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function seleccionarMapa(e) {
         const elemento = e.currentTarget;
-        
+
         const lat = parseFloat(elemento.dataset.lat);
         const lon = parseFloat(elemento.dataset.lon);
-        
+
         const nombreClima = elemento.querySelector('h3').textContent;
-    
+
         console.log("Latitud:", lat);
         console.log("Longitud:", lon);
-    
+
         Clima.obtenerDatos(lat, lon).then(clima => {
             if (clima) {
                 console.log(`Temperatura: ${clima.temperatura}°C`);
                 console.log(`Viento: ${clima.viento} m/s`);
                 console.log(`Dirección del viento: ${clima.direccionViento}°`);
-    
+                mapaSeleccionado=true;
                 guardarClima = new Clima(clima.temperatura, clima.viento, clima.direccionViento);
             }
-    
+
             climaSeleccionado = Object.values(climasDisponibles).find(c => c.nombre === nombreClima);
-    
+
             const climaHTML = `
 
             <div><h3 class="titulo">Tabla Climatica </h3></div>
@@ -452,8 +488,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     </table>
                 </div>
             `;
-    
-            // 🔁 Seleccionamos todos los contenedores con la clase 'tablaClima'
+
+            // Seleccionamos todos los contenedores con la clase 'tablaClima'
             const contenedores = document.querySelectorAll('.tablaClima');
             contenedores.forEach(contenedor => {
                 contenedor.innerHTML = ''; // Limpia cada contenedor
@@ -461,14 +497,9 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
-    
 
-    //Funcioin mostrar tabla clima
-    function mostrarTablaCLima (){
-
-    }
     //funcion para manejar el turno y ataques de la IA
-    
+
     function manejarTurno() {
         console.log("Tamaño del tablero", size);
         if (turno === 1) {
@@ -515,7 +546,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     // pintar segun el contenido de la matriz
                     if (tablero[f][c] === "b" && id === "userTablero_pc") { // Azul = barco - agregar al condicional las variantes para actualizar el tablero despues de cada ataque
-                        td.style.backgroundColor = "#007bff"; // Azul
+                        td.style.backgroundColor = "#0049a6"; // Azul
                     }
                     if (tablero[f][c] === "a-c") { // si hay un barco cerca pinta la casilla de naranja
                         td.style.backgroundColor = "#ff9900"; // Naranja
@@ -536,7 +567,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             const idAtacado = td.dataset.jugador;
                             console.log("tomamos las variables para atacar", filaAtacada, columnaAtacada, idAtacado);
                             atacar(filaAtacada, columnaAtacada, idAtacado);
-                        });
+                        });
                     }
                 }
                 tr.appendChild(td);
@@ -550,6 +581,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (id === "enemigo") {
             console.log("Estamos atacando al enemigo");
             let response = tableroEnemigo.verificarImpacto(fila, columna);
+
             switch (response) {
                 case 1:
                     JugadorHumano.AtacoBarco();// afecta al score del jugador y no cambia de turno, ataca otra vez
@@ -568,9 +600,13 @@ document.addEventListener("DOMContentLoaded", function () {
             actualizar_puntaje();
             console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
             generarTableroUser(seccionTableroEnemigo.id, tableroEnemigo.get_matriz());
+            if (tableroEnemigo.verificarGanador(size)) {
+                return finalizarJuego();
+            }
         } else if (id === "usuario") {
             console.log("Estamos atacando al usuario");
             let response = tableroJugador.verificarImpacto(fila, columna);
+
             switch (response) {
                 case 1:
                     JugadorIA.AtacoBarco();// afecta al score del enemigo y no cambia de turno, ataca otra vez
@@ -588,18 +624,21 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
             generarTableroUser(seccionTableroJugador.id, tableroJugador.get_matriz());
+            if (tableroJugador.verificarGanador(size)) {
+                return finalizarJuego();
+            }
         }
         manejarTurno();
     }
 
     // funcion para actualizar el puntaje del jugador en la pantalla de juego
-    function actualizar_puntaje(){
+    function actualizar_puntaje() {
         const jugadorPuntaje = document.getElementById("Jugador_puntaje");
         jugadorPuntaje.innerHTML = "";
         const h5 = document.createElement("h5");
         console.log("puntaje del jugador", JugadorHumano.getScore());
         h5.classList.add("puntajeText");
-        h5.textContent = "Puntaje del jugador: "+ JugadorHumano.getScore();
+        h5.textContent = "Puntaje del jugador: " + JugadorHumano.getScore();
         jugadorPuntaje.appendChild(h5);
     }
 
@@ -607,24 +646,75 @@ document.addEventListener("DOMContentLoaded", function () {
     function guardarJuego() {
         const banderaJugador = document.getElementById("CodigoBandera_user").textContent;
         JugadorHumano.ActualizarScore(banderaJugador);
+        Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Tu perfil se ha guardado correctamente",
+            showConfirmButton: false,
+            timer: 1500
+        });
         console.log("bandera del usuario, codigo", banderaJugador);
     }
-    
 
+    //funcion para exportar los mapas en tipo csv
     function exportarMapa(event) {
         event.preventDefault(); // Previene el recargado si vino de un <form>
+        Swal.fire({ //alerta de que efectivamente se exportaron los mapas
+            title: "Mapa Exportado",
+            icon: "success",
+            draggable: true
+        });
         tableroJugador.exportarTablero("Tablero_Jugador", tableroJugador.get_matriz());
         tableroEnemigo.exportarTablero("Tablero_Enemigo(IA)", tableroEnemigo.get_matriz());
+    }
+
+    //funcion para finalizar el juego
+    function finalizarJuego() {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: "btn btn-success",
+                cancelButton: "btn btn-danger"
+            },
+            buttonsStyling: false
+        });
+        swalWithBootstrapButtons.fire({
+            title: "Has Ganado!",
+            text: "¿Deseas Guardar tu perfil?",
+            icon: "success",
+            showCancelButton: true,
+            confirmButtonText: "Si, Guardalo",
+            cancelButtonText: "No, Soy imaginario",
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                swalWithBootstrapButtons.fire({
+                    title: "Guardado",
+                    text: "Tu perfil sera guardado en breve",
+                    icon: "success"
+                });
+                guardarJuego();
+            } else if (
+                /* Read more about handling dismissals below */
+                result.dismiss === Swal.DismissReason.cancel
+            ) {
+                swalWithBootstrapButtons.fire({
+                    title: "Cancelled",
+                    text: "No existeeess... (cerati referencia)",
+                    icon: "error"
+                });
+            }
+        });
+
     }
 
     // EVENTO PARA CREAR EL TABLERO
     botonCrear.addEventListener('click', () => crearTablero("inputTableroPc"));
 
     //evento para click guardaar juego 
-    botonGuardarJuego.addEventListener('click',  () => guardarJuego());
+    botonGuardarJuego.addEventListener('click', () => guardarJuego());
 
     //evento para click Exportar mapa
-    botonexportarMapa.addEventListener("click", function(e) {
+    botonexportarMapa.addEventListener("click", function (e) {
         exportarMapa(e);
     });
 

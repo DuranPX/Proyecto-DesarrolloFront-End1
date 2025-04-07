@@ -1,5 +1,4 @@
 import RankingService from "../controllers/API/rankingServices.js";
-import Tablero from "../models/Tablero.js";
 
 class Jugador {
 
@@ -32,19 +31,23 @@ class Jugador {
 
     static async crearJugador(nickname, maquina) {
         const ranking = new RankingService();
-        await ranking.datosRanking(); // solo carga
-        const jugadorData = await ranking.findAPlayer(nickname, ranking.getJugadores());
-        const jugadorEncontrado = jugadorData.score;
+        await ranking.datosRanking();
+        const jugadores = await ranking.getJugadores(); // devuelve array
+        console.log("Arreglo de jugadores de await ranking response", jugadores);
+        const jugadorEncontrado = await ranking.findAPlayer(nickname, jugadores);
+    
         const ScoreRecuperado = jugadorEncontrado ? jugadorEncontrado.score : 0;
-
+        console.log("ScoreRecuperado", ScoreRecuperado);
+    
         const jugador = {
             nickname,
             ScoreRecuperado,
             maquina
         };
-
+    
         console.log("Jugador creado:", jugador);
-        return new Jugador(nickname, ScoreRecuperado, maquina);;
+        return new Jugador(nickname, ScoreRecuperado, maquina);
+        ;
     }
 
 

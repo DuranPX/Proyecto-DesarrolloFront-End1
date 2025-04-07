@@ -56,7 +56,7 @@ def score_recorder():
     nick = data["nick_name"]
 
     if nick in scores:
-        scores[nick]["score"] += data["score"]
+        scores[nick]["score"] = data["score"]
     else:
         scores[nick] = {"score": data["score"], "country_code": data["country_code"]}
 

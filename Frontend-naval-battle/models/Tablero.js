@@ -2,7 +2,7 @@ import TableroService from "../controllers/API/TableroService.js";
 
 class Tablero {
     constructor(filas, columnas) {
-        
+
         this.filas = filas;
         this.columnas = columnas;
         this.matriz = this.inicializarMatriz();
@@ -43,7 +43,7 @@ class Tablero {
         }
         return solapamiento;
     }
-    
+
     colocarBarcoLogico(f, c, tamBarco, orientacionBarco) {
         if (orientacionBarco === "vertical") {
             if (this.verificarSolapamiento(f, c, tamBarco, orientacionBarco) === true) {
@@ -52,7 +52,7 @@ class Tablero {
                 }
             } else {
                 console.log("Hay solapamiento bobo hijueputa");
-                return  true;
+                return true;
             }
         } else if (orientacionBarco === "horizontal") {
             if (this.verificarSolapamiento(f, c, tamBarco, orientacionBarco) === true) {
@@ -61,7 +61,7 @@ class Tablero {
                 }
             } else {
                 console.log("Hay solapamiento bobo hijueputa");
-                return  true;
+                return true;
             }
         }
         return false;
@@ -71,29 +71,29 @@ class Tablero {
         console.log("Verificando impacto en ", f, c);
         const casilla = this.matriz[f][c];
         let estadoDisparo = null;
-    
+
         // Si la casilla ya tiene un estado asignado, retornar -1 o un código especial
         if (casilla === 'b-h' || casilla === 'a-c' || casilla === 'F') {
             console.log("Casilla ya marcada, no se puede cambiar");
             return estadoDisparo = -1; // -1 indica que no se hizo cambio
         }
-    
+
         // Verificar si hay impacto directo
         if (casilla !== 'a' && casilla !== 'F' && casilla !== 'b-h' && casilla !== 'a-c') {
             this.matriz[f][c] = "b-h";
             return estadoDisparo = 1; // Impacto directo
         }
-    
+
         // Revisar casillas a la redonda
         const direcciones = [
             [-1, 0], [1, 0], [0, -1], [0, 1], // arriba, abajo, izquierda, derecha
             [-1, -1], [-1, 1], [1, -1], [1, 1] // diagonales
         ];
-    
+
         for (let [dx, dy] of direcciones) {
             const nuevaFila = f + dx;
             const nuevaCol = c + dy;
-    
+
             // Verificar límites del tablero
             if (
                 nuevaFila >= 0 && nuevaFila < this.filas &&
@@ -107,17 +107,26 @@ class Tablero {
                 }
             }
         }
-    
+
         // Si no hubo impacto directo ni alrededor
         this.matriz[f][c] = "F";
         return estadoDisparo = 0; // Fallo
     }
 
-
-    exportarTablero(nombre,tablero) {
-        let tableroExport = new TableroService();
-        tableroExport.Exportar_Tablero(nombre , tablero);
+    verificarGanador(size) {
+        let Ganador = true;
+        for (let f = 0; f < size; f++) {
+            for (let c = 0; c < size; c++) {
+                if (this.matriz[f][c] === "b")
+                    return Ganador = false;
+            }
+        }
+        return Ganador;
     }
 
+    exportarTablero(nombre, tablero) {
+        let tableroExport = new TableroService();
+        tableroExport.Exportar_Tablero(nombre, tablero);
+    }
 }
 export default Tablero;
