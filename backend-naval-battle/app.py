@@ -3,6 +3,7 @@ from flask_cors import CORS
 import json
 import os
 import csv
+import io
 
 app = Flask(__name__)
 CORS(app)
@@ -41,12 +42,6 @@ def load_scores():
             return json.load(file)
     return {}
 
-def exportarMapa_csv(nombre,tablero):
-    archivo = f"{nombre}_tablero.csv"
-    with open(archivo,mode="w",newline="") as mapa:
-        escribir= csv.writer(mapa)
-        escribir.writerows(tablero)   
-
 def save_scores(scores):
     with open(DB_FILE, "w") as file:
         json.dump(scores, file, indent=4)
@@ -82,11 +77,21 @@ def get_countries():
 
 @app.route("/exportar_tablero", methods=["GET"])
 def descargar_tablero():
-    nombre = request.args.get("nombre");
-    matriz_json = request.args.get("matriz");
+    nombre = request.args.get("nombre")
+    matriz_json = request.args.get("matriz")
     matriz = json.loads(matriz_json)
-    archivo = exportarMapa_csv(nombre,matriz);
-    return send_file(archivo, as_attachment=True)
+
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerows(matriz)
+    output.seek(0)
+
+    return send_file(
+        io.BytesIO(output.getvalue().encode("utf-8")),
+        mimetype="text/csv",
+        as_attachment=True,
+        download_name=f"{nombre}.csv"
+    )
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -15,13 +15,18 @@ document.addEventListener("DOMContentLoaded", function () {
     let esHorizontal = false;
     let barcoSeleccionado = null;
 
-    let guardarClima = new Clima(null,null,null);
+    let guardarClima = new Clima(null, null, null);
 
 
     // ELEMENTOS DEL DOM
+    let seccionTableroEnemigo = document.getElementById("enemyTablero_pc");
+    let seccionTableroJugador = document.getElementById("userTablero_pc");
 
+    const botonInicializarJugador = document.getElementById("btnMenu");
+    const botonGuardarJuego = document.getElementById("guardarBtn-pc");
+    const botonexportarMapa = document.getElementById("exportarBtn-pc");
     const botonCrear = document.getElementById("btnCrearPc"); // Botón para crear el tablero
-    const NickName = document.getElementById("input-login"); // Input para el nombre del jugador
+    
 
     // INICIALIZACIÓN DE TABLEROS
 
@@ -50,17 +55,33 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     const climasDisponibles = {
-        Despejado: { nombre: "Despejado", descripcion: "Pacífico",  img: "oceanodespejado.jpg", lat: 0 , lon: -160 },
-        Nocturno: { nombre: "Nocturno", descripcion: "Mar muerto", img: "oceano12.webp", lat: 31.55 , lon: 35.47  },
-        Soleado: { nombre: "Soleado", descripcion: "Báltico", img: "oceanosoleado.jpg", lat: 54.35 , lon: 18.65  },
-        Antartida: { nombre: "Antartida", descripcion: "Antártico", img: "Antartico.jpg", lat: -90 , lon: 0  },
+        Despejado: { nombre: "Despejado", descripcion: "Pacífico", img: "oceanodespejado.jpg", lat: 0, lon: -160 },
+        Nocturno: { nombre: "Nocturno", descripcion: "Mar muerto", img: "oceano12.webp", lat: 31.55, lon: 35.47 },
+        Soleado: { nombre: "Soleado", descripcion: "Báltico", img: "oceanosoleado.jpg", lat: 54.35, lon: 18.65 },
+        Antartida: { nombre: "Antartida", descripcion: "Antártico", img: "Antartico.jpg", lat: -90, lon: 0 },
     }
 
 
     // INICIALIZACIÓN DE JUGADORES
 
-    const JugadorHumano = new Jugador(NickName, null, false); // Jugador humano
-    const JugadorIA = new Jugador(null, null, true); // Jugador IA (computadora)
+    let JugadorHumano; // Jugador humano
+    
+    const JugadorIA = new Jugador("bot_ninja", 0, true); // Jugador IA (computadora)
+
+    async function iniciarJugadorHumano(nickname) {
+        JugadorHumano = await Jugador.crearJugador(nickname, 0, false);
+        // podés seguir llamando funciones o iniciar lógica si querés
+        console.log("Jugador creado:", JugadorHumano);
+        actualizar_puntaje();
+        
+    }
+
+    // funcion para crear jugador
+    function recogerNickname(){
+        const NickName = document.getElementById("input-login").value;
+        iniciarJugadorHumano(NickName)
+        console.log("Nickname:", NickName); 
+    }
 
 
     // FUNCIÓN PARA CREAR EL TABLERO
@@ -71,9 +92,9 @@ document.addEventListener("DOMContentLoaded", function () {
      * - Reinicia los contadores de barcos colocados
      * - Genera el tablero visual y los botones de barcos
      */
-    function crearTablero() {
+    function crearTablero(id_select) {
         // Obtenemos el tamaño del tablero del input
-        const newSize = parseInt(document.getElementById("inputTableroPc").value) || 10;
+        const newSize = parseInt(document.getElementById(id_select).value) || 10;
 
         // Validamos que el tamaño sea correcto
         if (isNaN(newSize) || newSize < 10 || newSize > 20) {
@@ -93,7 +114,7 @@ document.addEventListener("DOMContentLoaded", function () {
         generarTablero("TablaUsuario", size);
         crearBotonesBarcos();
         crearBotonesMapas();
-        crearIniciarJuegobtn("btnEntornoJugar");
+        crearIniciarJuegobtn();
         console.log("tablero del jugador creado", tableroJugador);
         console.log("tablero del bot creado", tableroEnemigo);
         crearTableroEnemigo();
@@ -105,16 +126,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const tamBarcos = [2, 2, 3, 3, 4, 5]; // Tamaños de barcos posibles
         for (let i = 0; i < tamBarcos.length; i++) {
             let colocado = false;
-    
+
             while (!colocado) {
                 let fila = Math.floor(Math.random() * size); // Fila aleatoria
                 let columna = Math.floor(Math.random() * size); // Columna aleatoria
                 let orientacionBarco = Math.random() >= 0.5 ? "horizontal" : "vertical"; // Orientación aleatoria
-    
+
                 // Verificamos si el barco cabe dentro del tablero
                 if (orientacionBarco === "vertical" && fila + tamBarcos[i] > size) continue;
                 if (orientacionBarco === "horizontal" && columna + tamBarcos[i] > size) continue;
-    
+
                 // Intentamos colocarlo. Si devuelve false, se colocó bien.
                 if (!tableroEnemigo.colocarBarcoLogico(fila, columna, tamBarcos[i], orientacionBarco)) {
                     colocado = true; // Barco colocado con éxito
@@ -179,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function () {
         contenedorBarcos.innerHTML = ''; // Limpiamos el contenedor
 
         // Creamos un botón para cada tipo de barco disponible
+        //.entries vuelve un objeto en un array donde en cada posicion se guarda una pareja de datos [nombre,dato(s)]
         Object.entries(barcosDisponibles).forEach(([nombre, datos]) => {
             const disponibles = datos.cantidad - datos.colocados;
             if (disponibles <= 0) return; // No mostramos barcos que ya se colocaron todos
@@ -303,10 +325,28 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!todosColocados) {
                 alert("¡Coloca todos los barcos primero!");
                 return;
+            } else {
+                console.log("Iniciando batalla...");
+                console.log("Mostrando Juego en proceso...");
+                document.querySelectorAll("section").forEach(seccion => {
+                    seccion.style.display = "none";
+                });
+
+                // Mostrar la sección seleccionada
+                let seccionMostrada = document.getElementById("juego-pc");
+                if (seccionMostrada) {
+                    seccionMostrada.style.display = "block";
+                }
+                // Aquí iría la lógica para comenzar el juego
+                console.log("entro a la logica del juego");
+
+
+                generarTableroUser(seccionTableroEnemigo.id, tableroEnemigo.get_matriz());
+                generarTableroUser(seccionTableroJugador.id, tableroJugador.get_matriz());
+                console.log("se supone que genero el tablero");
             }
 
-            console.log("Iniciando batalla...");
-            // Aquí iría la lógica para comenzar el juego
+
         });
 
         contenedor.appendChild(btn);
@@ -317,11 +357,6 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener('keydown', (e) => {
         // Verificamos si se presionó la tecla R
         if (e.key.toLowerCase() === 'r') {
-            // Verificamos que haya un barco seleccionado
-            if (!barcoSeleccionado) {
-                alert("Selecciona un barco primero");
-                return;
-            }
 
             // Cambiamos la dirección
             esHorizontal = !esHorizontal;
@@ -334,59 +369,263 @@ document.addEventListener("DOMContentLoaded", function () {
     function crearBotonesMapas() {
         const contenedorMapas = document.getElementById("contenedor-mapas");
         contenedorMapas.innerHTML = ''; // Limpiamos el contenedor
-        
+
         // Creamos un botón para cada tipo de mapa disponible
+        //.entries vuelve un objeto en un array donde en cada posicion se guarda una pareja de datos [nombre,dato(s)]
+        //En este caso solo usamos los datos y por eso destruimos a "nombre" con "_" ya q este no es necesario
         Object.entries(climasDisponibles).forEach(([_, datos]) => {
             const mapasHTML = `
                 <div class="col-lg-3 col-md-4 col-6">
                     <div class="carta mapa-seleccionable" 
-                         data-lat="${datos.lat}" 
+                    data-lat="${datos.lat}" 
                          data-lon="${datos.lon}">
                         <img src="assets/${datos.img}" alt="${datos.nombre}" class="img-fluid">
                         <div class="info">
-                            <h3>${datos.nombre}</h3>
+                        <h3>${datos.nombre}</h3>
                             <p>${datos.descripcion}</p>
                         </div>
                     </div>
-                </div>
+                    </div>
             `;
             contenedorMapas.insertAdjacentHTML('beforeend', mapasHTML);
         });
-        
+
         // Asignamos eventos a los botones de mapas (Sin esto la carta no actua como boton)
         document.querySelectorAll('.mapa-seleccionable').forEach(carta => {
             carta.addEventListener('click', seleccionarMapa);
         });
 
-  
+
     }
 
-    //
+    //Funcion para seleccionar mapa y crear la tabla del clima
+    //Funcion para seleccionar el mapa y cargar el clima
 
     function seleccionarMapa(e) {
+        // 1. OBTENER DATOS DEL MAPA SELECCIONADO
+        // currentTarget es el elemento que disparó el evento (el mapa clickeado)
         const elemento = e.currentTarget;
-        const lat = parseFloat(elemento.dataset.lat);
-        const lon = parseFloat(elemento.dataset.lon);
+        
+        const lat = parseFloat(elemento.dataset.lat); // Convertimos a número la latitud
+        const lon = parseFloat(elemento.dataset.lon); // Convertimos a número la longitud
+        
+        // Obtenemos el nombre del clima del título (h3) dentro del elemento clickeado
+        const nombreClima = elemento.querySelector('h3').textContent;
 
         console.log("Latitud:", lat);
         console.log("Longitud:", lon);
 
         Clima.obtenerDatos(lat, lon).then(clima => {
+
             if (clima) {
                 console.log(`Temperatura: ${clima.temperatura}°C`);
                 console.log(`Viento: ${clima.viento} m/s`);
                 console.log(`Dirección del viento: ${clima.direccionViento}°`);
 
-                guardarClima = new Clima (clima.temperatura,clima.viento,clima.direccionViento);
+                guardarClima = new Clima(clima.temperatura, clima.viento, clima.direccionViento);
             }
-        });
 
+            const tablaClima = document.getElementById("tabla-Clima");
+            tablaClima.innerHTML = '';
+        
+            // Convertimos el objeto climasDisponibles en array de valores (esos hace el .values)
+            // y buscamos el que coincide con el nombre del clima seleccionado
+            //.find():Busca en un array el primer elemento que cumple una condición.
+            const climaSeleccionado = Object.values(climasDisponibles).find(c => c.nombre === nombreClima);
+            const climaHTML = `
+
+            <div><h3 class="titulo">Tabla Climatica </h3></div>
+                <div class="container" id="tablaClimatica">
+                    <table id="tablaClima">
+                        <thead id="encabezado-clima" class="text-center">
+                            <tr>
+                                <th>Clima Elegigo</th>
+                                <th>Lugar</th>
+                                <th>Temperatura (°C)</th>
+                                <th>Velocidad del Viento (m/s)</th>
+                                <th>Dirección del viento (°)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-center" id="cuerpo-clima">
+                            <tr>
+                                <td>${climaSeleccionado.nombre}</td>
+                                <td>${climaSeleccionado.descripcion}</td> 
+                                <td>${guardarClima.temperatura}</td>      
+                                <td>${guardarClima.viento}</td>              
+                                <td>${guardarClima.direccionViento}</td>     
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+            // 8. INSERTAR LA TABLA EN EL DOM
+            // Insertamos el HTML generado al final del contenedor
+            tablaClima.insertAdjacentHTML('beforeend', climaHTML);
+        });
+    }
+    //funcion para manejar el turno y ataques de la IA
+    
+    function manejarTurno() {
+        console.log("Tamaño del tablero", size);
+        if (turno === 1) {
+            const fila = JugadorIA.elegirDisparo(size);
+            const columna = JugadorIA.elegirDisparo(size);
+            console.log("Return de elegirDisparo", fila, columna);
+            atacar(fila, columna, "usuario");
+        }
+    }
+    // Funcion para crear el tablero segun cada jugador
+
+    function generarTableroUser(id, tablero) {
+        const tabla = document.getElementById(id);
+        tabla.innerHTML = "";
+
+        console.log("tableroEnemigo:", tableroEnemigo);
+        console.log("tablero ingresado", tablero);
+        console.log("matriz enemigo:", tableroEnemigo.get_matriz?.());
+
+        const size = tablero.length; // Asumimos que el tablero es una matriz cuadrada
+
+        for (let fila = 0; fila <= size; fila++) {
+            const tr = document.createElement("tr");
+
+            for (let col = 0; col <= size; col++) {
+                const td = document.createElement("td");
+
+                if (col === 0 && fila > 0) {
+                    td.textContent = String.fromCharCode(64 + fila);
+                    td.classList.add("coordenada");
+                } else if (fila === 0 && col > 0) {
+                    td.textContent = col;
+                    td.classList.add("coordenada");
+                } else if (fila > 0 && col > 0) {
+                    const f = fila - 1;
+                    const c = col - 1;
+
+                    const filaLetra = String.fromCharCode(64 + fila);
+                    td.id = `celda-${filaLetra}-${col}`;
+                    td.classList.add("celda");
+                    td.dataset.fila = f;
+                    td.dataset.columna = c;
+                    td.dataset.jugador = id === "enemyTablero_pc" ? "enemigo" : "usuario";
+
+                    // pintar segun el contenido de la matriz
+                    if (tablero[f][c] === "b" && id === "userTablero_pc") { // Azul = barco - agregar al condicional las variantes para actualizar el tablero despues de cada ataque
+                        td.style.backgroundColor = "#007bff"; // Azul
+                    }
+                    if (tablero[f][c] === "a-c") { // si hay un barco cerca pinta la casilla de naranja
+                        td.style.backgroundColor = "#ff9900"; // Naranja
+                    }
+                    if (tablero[f][c] === "b-h") { // si hay un barco herido lo pinta de rojo
+                        td.style.backgroundColor = "#ff0000"; // Rojo
+                    }
+                    if (tablero[f][c] === "F") { // si anteriormente falló un disparo, la casilla se pinta de gris
+                        td.style.backgroundColor = "#999999"; // Gris
+                    }
+
+                    console.log("centinela para if ataque y turno en: ", turno);
+                    if (id === "enemyTablero_pc") {
+                        td.addEventListener("click", () => {
+                            if (turno !== 0) return; // solo permite ataque si es turno del jugador                    
+                            const filaAtacada = parseInt(td.dataset.fila);
+                            const columnaAtacada = parseInt(td.dataset.columna);
+                            const idAtacado = td.dataset.jugador;
+                            console.log("tomamos las variables para atacar", filaAtacada, columnaAtacada, idAtacado);
+                            atacar(filaAtacada, columnaAtacada, idAtacado);
+                        });
+                    }
+                }
+                tr.appendChild(td);
+            }
+            tabla.appendChild(tr);
+        }
+    }
+    //funcion para cuando el usuario ataca
+
+    function atacar(fila, columna, id) { // fila atacado, columna atacada y id del tablero atacado
+        if (id === "enemigo") {
+            console.log("Estamos atacando al enemigo");
+            let response = tableroEnemigo.verificarImpacto(fila, columna);
+            switch (response) {
+                case 1:
+                    JugadorHumano.AtacoBarco();// afecta al score del jugador y no cambia de turno, ataca otra vez
+                    break;
+                case 2:
+                    JugadorHumano.cercaImpacto();
+                    turno = 1; //como fallo el impacto cambia de turno
+                    break;
+                case -1:
+                    turno = 1;
+                default:
+                    JugadorHumano.FalloImpacto();
+                    turno = 1; //como fallo el impacto cambia de turno
+                    break;
+            }
+            actualizar_puntaje();
+            console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
+            generarTableroUser(seccionTableroEnemigo.id, tableroEnemigo.get_matriz());
+        } else if (id === "usuario") {
+            console.log("Estamos atacando al usuario");
+            let response = tableroJugador.verificarImpacto(fila, columna);
+            switch (response) {
+                case 1:
+                    JugadorIA.AtacoBarco();// afecta al score del enemigo y no cambia de turno, ataca otra vez
+                    break;
+                case 2:
+                    JugadorIA.cercaImpacto();
+                    turno = 0; //como fallo el impacto cambia de turno
+                    break;
+                case -1:
+                    turno = 1;
+                default:
+                    JugadorIA.FalloImpacto();
+                    turno = 0; //como fallo el impacto cambia de turno
+                    break;
+            }
+            console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
+            generarTableroUser(seccionTableroJugador.id, tableroJugador.get_matriz());
+        }
+        manejarTurno();
+    }
+
+    // funcion para actualizar el puntaje del jugador en la pantalla de juego
+    function actualizar_puntaje(){
+        const jugadorPuntaje = document.getElementById("Jugador_puntaje");
+        jugadorPuntaje.innerHTML = "";
+        const h5 = document.createElement("h5");
+        console.log("puntaje del jugador", JugadorHumano.getScore());
+        h5.classList.add("puntajeText");
+        h5.textContent = "Puntaje del jugador: "+ JugadorHumano.getScore();
+        jugadorPuntaje.appendChild(h5);
+    }
+
+    //funcion para guardar los datos del jugador
+    function guardarJuego() {
+        const banderaJugador = document.getElementById("CodigoBandera_user").textContent;
+        JugadorHumano.ActualizarScore(banderaJugador);
+        console.log("bandera del usuario, codigo", banderaJugador);
     }
     
-    
 
-
+    function exportarMapa(event) {
+        event.preventDefault(); // Previene el recargado si vino de un <form>
+        tableroJugador.exportarTablero("Tablero_Jugador", tableroJugador.get_matriz());
+        tableroEnemigo.exportarTablero("Tablero_Enemigo(IA)", tableroEnemigo.get_matriz());
+    }
 
     // EVENTO PARA CREAR EL TABLERO
-    botonCrear.addEventListener('click', crearTablero);
+    botonCrear.addEventListener('click', () => crearTablero("inputTableroPc"));
+
+    //evento para click guardaar juego 
+    botonGuardarJuego.addEventListener('click',  () => guardarJuego());
+
+    //evento para click Exportar mapa
+    botonexportarMapa.addEventListener("click", function(e) {
+        exportarMapa(e);
+    });
+
+    // reconocer cuando el usuario confirma haber escrito su nickname
+    botonInicializarJugador.addEventListener("click", () => recogerNickname());
+
 });
