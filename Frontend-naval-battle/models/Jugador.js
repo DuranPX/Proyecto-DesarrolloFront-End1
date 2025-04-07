@@ -31,9 +31,21 @@ class Jugador {
 
     static async crearJugador(nickname, maquina) {
         const ranking = new RankingService();
-        const ScoreRecuperado = await ranking.findAPlayer(nickname);// si encuentra coincidencias con otro jugador del mismo nombre actualiza el score
-        return new Jugador(nickname, ScoreRecuperado, maquina);
+        await ranking.datosRanking(); // solo carga
+        const jugadorData = await ranking.findAPlayer(nickname, ranking.getJugadores());
+        const jugadorEncontrado = jugadorData.score;
+        const ScoreRecuperado = jugadorEncontrado ? jugadorEncontrado.score : 0;
+
+        const jugador = {
+            nickname,
+            ScoreRecuperado,
+            maquina
+        };
+
+        console.log("Jugador creado:", jugador);
+        return new Jugador(nickname, ScoreRecuperado, maquina);;
     }
+
 
     AtacoBarco() {
         this.score += 10;
@@ -45,6 +57,10 @@ class Jugador {
 
     cercaImpacto() {
         this.score -= 3;
+    }
+
+    getScore() {
+        return this.score;
     }
 
 }

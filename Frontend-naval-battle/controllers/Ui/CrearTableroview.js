@@ -72,6 +72,8 @@ document.addEventListener("DOMContentLoaded", function () {
         JugadorHumano = await Jugador.crearJugador(nickname, 0, false);
         // podés seguir llamando funciones o iniciar lógica si querés
         console.log("Jugador creado:", JugadorHumano);
+        actualizar_puntaje();
+        
     }
 
     // funcion para crear jugador
@@ -349,8 +351,6 @@ document.addEventListener("DOMContentLoaded", function () {
         contenedor.appendChild(btn);
     }
 
-
-
     // EVENTO PARA ROTAR BARCOS (TECLA R)
 
     document.addEventListener('keydown', (e) => {
@@ -489,10 +489,8 @@ document.addEventListener("DOMContentLoaded", function () {
                         });
                     }
                 }
-
                 tr.appendChild(td);
             }
-
             tabla.appendChild(tr);
         }
     }
@@ -514,6 +512,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     turno = 1; //como fallo el impacto cambia de turno
                     break;
             }
+            actualizar_puntaje();
             console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
             generarTableroUser(seccionTableroEnemigo.id, tableroEnemigo.get_matriz());
         } else if (id === "usuario") {
@@ -534,6 +533,17 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
             generarTableroUser(seccionTableroJugador.id, tableroJugador.get_matriz());
         }
+    }
+
+    // funcion para actualizar el puntaje del jugador en la pantalla de juego
+    function actualizar_puntaje(){
+        const jugadorPuntaje = document.getElementById("Jugador_puntaje");
+        jugadorPuntaje.innerHTML = "";
+        const h5 = document.createElement("h5");
+        console.log("puntaje del jugador", JugadorHumano.getScore());
+        h5.classList.add("puntajeText");
+        h5.textContent = "Puntaje del jugador: "+ JugadorHumano.getScore();
+        jugadorPuntaje.appendChild(h5);
     }
 
     //funcion para guardar los datos del jugador
@@ -557,7 +567,7 @@ document.addEventListener("DOMContentLoaded", function () {
     botonGuardarJuego.addEventListener('click',  () => guardarJuego());
 
     //evento para click Exportar mapa
-    document.getElementById("exportarBtn-pc").addEventListener("click", function(e) {
+    botonexportarMapa.addEventListener("click", function(e) {
         exportarMapa(e);
     });
 

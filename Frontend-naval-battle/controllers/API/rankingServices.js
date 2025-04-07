@@ -7,20 +7,21 @@ export default class RankingService {
     async datosRanking() {
         try {
             const response = await fetch("http://localhost:5000/ranking");
-            console.log("Código de respuesta:", response.status);
-            const data = await response.json();
-
-            this.jugadores = Object.keys(data).map(player => ({
-                name: data[player].nick_name,
-                score: data[player].score,
-                country: data[player].country_code
+            const data = await response.json(); // data es un array
+    
+            this.jugadores = data.map(player => ({
+                name: player.nick_name,
+                score: player.score,
+                country: player.country_code
             }));
-
+    
             this.mostrarRanking();
         } catch (error) {
             console.error("Error al obtener datos:", error);
         }
+        console.log("Jugadores cargados:", this.jugadores);
     }
+    
     
     mostrarRanking() {
         const jugadoresOrdenados = this.jugadores.sort((a, b) => b.score - a.score);
@@ -44,16 +45,20 @@ export default class RankingService {
             tablaJugadores.appendChild(fila);
         });
     }
+    getJugadores() {
+        return this.jugadores;
+    }
 
-    async findAPlayer(nombre) {
+    async findAPlayer(nombre,jugadores) {
         console.log("Buscando jugador:", nombre);
         console.log("Jugadores disponibles:", this.jugadores);
+        console.log("Jugadores paramtro:", jugadores);
     
-        const jugadorEncontrado = this.jugadores.find(player => player.name === nombre);
+        const jugadorEncontrado = jugadores.find(player => player.name === nombre);
     
         if (jugadorEncontrado) {
             console.log("Jugador encontrado:", jugadorEncontrado);
-            return jugadorEncontrado.score;
+            return jugadorEncontrado;
         } else {
             console.log("No se encontró el jugador.");
             return 0;

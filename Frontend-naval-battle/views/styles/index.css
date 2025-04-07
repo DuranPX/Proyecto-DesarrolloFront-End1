@@ -619,9 +619,36 @@ img {
     color: #052f57c5;
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
     user-select: none;
-    padding: 50px;
+    padding-bottom: 10px;
+    padding-top: 30px;
 }
 
 #CodigoBandera_user{
     display: none;
+}
+
+.puntajeText{
+    font-family: 'Stella Lumina', sans-serif;
+    color: aliceblue;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
+#contenedor-bottomGame{
+    justify-items: center;
+    
+}
+
+#guardarBtn-pc {
+    min-width: 100px;
+    min-height: 100px;
+}
+#exportarBtn-pc {
+    min-width: 100px;
+    min-height: 100px;
+}
+#guardarBtn-pc:hover, #exportarBtn-pc:hover{
+    background-color: rgba(240, 248, 255, 0.589);
+    color: black;
+    border-color: aliceblue;
 }
