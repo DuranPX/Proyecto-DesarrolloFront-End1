@@ -8,7 +8,11 @@
         "country_code": "co"
     },
     "DuranPx": {
-        "score": 0,
+        "score": 10000,
         "country_code": "co"
+    },
+    "Carlitos": {
+        "score": 0,
+        "country_code": "gs"
     }
 }
