@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             //colocar bandera y nombre en su espacio
             countryList.addEventListener("click", (event) => {
-                event.preventDefault();
+                event.preventDefault(); // evita que la pagina se recargue
                 const target = event.target.closest("a");
                 if (target) {
                     const countryCode = target.getAttribute("data-code");
