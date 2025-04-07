@@ -56,7 +56,7 @@ export default class RankingService {
             return jugadorEncontrado.score;
         } else {
             console.log("No se encontró el jugador.");
-            return null;
+            return 0;
         }
     }
 }

@@ -479,6 +479,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 0vh;
+    user-select: none;
 }
 
 #rankingTable-pc table {
@@ -600,5 +601,65 @@ img {
 
 /*relacionado con juego en pantalla*/
 #juego-pc {
+    display: none;
+}
+
+
+#userTablero_pc td {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 14px;
+    
+}
+
+#userTablero_pc-, #enemyTablero_pc-{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#userTablero_pc {
+    background: url(../assets/2488ff9d-da3e-4099-830e-cd18711b340a.gif);
+    z-index: 20;
+    background-position: center;
+    background-size: cover;
+    border: 2px solid;
+    justify-content: center;
+    align-items: center;
+}
+
+#enemyTablero_pc td {
+    width: 30px;
+    height: 30px;
+    border: 1px solid black;
+    text-align: center;
+    font-size: 14px;
+    
+}
+
+#enemyTablero_pc{
+    background: url(../assets/2488ff9d-da3e-4099-830e-cd18711b340a.gif);
+    z-index: 20;
+    background-position: center;
+    background-size: cover;
+    border: 2px solid;
+    justify-content: center;
+    align-items: center;
+}
+
+.GameTitle_Ingame{
+    font-family: 'Stella Lumina', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #052f57c5;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    user-select: none;
+    padding: 50px;
+}
+
+#CodigoBandera_user{
     display: none;
 }

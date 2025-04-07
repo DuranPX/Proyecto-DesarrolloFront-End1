@@ -45,6 +45,7 @@
                             <div class="col-4 text-center" id="textCredit"><a class="creditos-text">Créditos</a></div>
                         </div>
                     </div>
+                    <div id="CodigoBandera_user"></div>
                     <hr class="hr-item">
                     <div class="container-fluid" id="content-Base2">
                         <div class="row">
@@ -102,13 +103,15 @@
                         <div class="col-12">                            
                             <h4 class="TituloEntorno-Pc">Mapas</h4>
                             <div class="row MapasImgs-pc mt-3" id="contenedor-mapas"><!--Aqui apareceran los mapas-->
-
+                                <h2 class="advice-barcos">Crea un tablero para ver los Mapas disponibles</h2>
                             </div>
                             <hr class="my-4">
                             <div class="row container-fluid" id="tabla-Clima"><!--Aqui aparecera la tabla del clima-->
 
                             </div>
+
                             <hr class="my-4">
+                            
                             <h4 class="TituloEntorno-Pc">Barcos</h4>
                             <div class="row barcosImgs-pc mt-3" id="contenedor-barcos"><!--Aquí van ha aparecer los (img) barcos-->
                                 <h2 class="advice-barcos">Crea un tablero para ver los barcos disponibles</h2>
@@ -133,32 +136,29 @@
         </section>
         <section id="juego-pc">
             <div class="container-fluid" id="contenedor-juego">
-                <div class="container-fluid" id="informativeGame_pc">
-                    <h2 class="GameTitle">Mythic Warships</h2>
-                    <div class="barcosAlert"></div> <!--aqui va la actualizacion de los barcos restantes enemigos-->
+                <div class="container" id="informativeGame_pc">
+                    <h2 class="GameTitle_Ingame">Mythic Warships</h2>
+                    <div class="Jugador puntaje: "></div> <!--aqui va la actualizacion del puntaje del jugador-->
                 </div>
                 <div class="container-fluid" id="inGame_pc">
                     <div class="row">
-                        <div class="col-2" id="userBarcosAlive_pc"></div>
-                        <!--se imprimen los barcos vivos del usuario desde js-->
-                        <div class="col-6" id="userTablero_pc"></div>
+                        <div class="col-6" id="userTablero_pc-"><table id="userTablero_pc"></table></div>
                         <!--se imprime el tablero del usuario despues de configurarlo previamente-->
-                        <div class="col-6" id="enemyTablero_pc"></div>
+                        <div class="col-6" id="enemyTablero_pc-"><table id="enemyTablero_pc"></table></div>
                         <!--se imprime el tablero del enemigo con formato aleatoreo pero sin solapamiento-->
-                        <div class="col-2" id="EnemyBarcosAlive_pc"></div><!--se imprime los barcos vivos del enemigo-->
                     </div>
                 </div>
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-4">
-                            <button class="btn btn-success guardarBtn-pc">← Guardar Juego</button>
+                            <button class="btn btn-success" id="guardarBtn-pc">← Guardar Juego</button>
                         </div>
-                        <div class="col-4">
+                        <div class="col-6">
                             <div class="row container-fluid" id="tabla-Clima"><!--Aqui aparecera la tabla del clima-->
 
                             </div>
                         </div>
-                        <div class="col-4"><button class="btn btn-success exportarBtn-pc">Exportar Mapa →</button></div>
+                        <div class="col-2"><button class="btn btn-success " id="exportarBtn-pc">Exportar Mapa →</button></div>
                     </div>
                 </div>
             </div>
