@@ -39,7 +39,7 @@ class Jugador {
         const ScoreRecuperado = jugadorEncontrado ? jugadorEncontrado.score : 0;
         console.log("ScoreRecuperado", ScoreRecuperado);
     
-        const jugador = {
+        const jugador = { // esto no cumple ninguna funcion
             nickname,
             ScoreRecuperado,
             maquina

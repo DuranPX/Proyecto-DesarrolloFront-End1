@@ -5,6 +5,7 @@ import os
 import csv
 import io
 
+# las importaciones nuevas son io, csv, os, send_file
 app = Flask(__name__)
 CORS(app)
 
@@ -75,18 +76,18 @@ def get_countries():
     countries = load_countries()
     return jsonify(countries)
 
-@app.route("/exportar_tablero", methods=["GET"])
-def descargar_tablero():
-    nombre = request.args.get("nombre")
-    matriz_json = request.args.get("matriz")
-    matriz = json.loads(matriz_json)
+@app.route("/exportar_tablero", methods=["GET"]) # /exportar_tablero es el puerto al que tableroService hace fetch
+def descargar_tablero(): #funcion con metodo get para descargar el archivo csv que se crea y se returnea con la libreria send_file
+    nombre = request.args.get("nombre")# recibe el argumento del nombre del archivo enviado por tableroService
+    matriz_json = request.args.get("matriz") # recibe el argumento de la matriz enviado por tableroService
+    matriz = json.loads(matriz_json) # vuelve la matriz un json para trabajrlo con csv y python
 
-    output = io.StringIO()
-    writer = csv.writer(output)
-    writer.writerows(matriz)
-    output.seek(0)
+    output = io.StringIO() # es lo que enviaremos con la peticion get para que no se descargue localmente
+    writer = csv.writer(output) # es puro archivo se crea un escrito de archivos csv y se aplica el output
+    writer.writerows(matriz) # se escribe la matriz con ayuda del writerows
+    output.seek(0) # enfoca el puntero en el primer char, al inicio del archivo
 
-    return send_file(
+    return send_file( # vamos a enviar con ayuda de send_file un archivo en memoria (io.bytesIO) codificado en UTF-8 
         io.BytesIO(output.getvalue().encode("utf-8")),
         mimetype="text/csv",
         as_attachment=True,
