@@ -601,7 +601,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
             generarTableroUser(seccionTableroEnemigo.id, tableroEnemigo.get_matriz());
             if (tableroEnemigo.verificarGanador(size)) {
-                return finalizarJuego();
+                return finalizarJuego(id);
             }
         } else if (id === "usuario") {
             console.log("Estamos atacando al usuario");
@@ -625,7 +625,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log(`Atacando en [${fila}, ${columna}, ${id}]`);
             generarTableroUser(seccionTableroJugador.id, tableroJugador.get_matriz());
             if (tableroJugador.verificarGanador(size)) {
-                return finalizarJuego();
+                return finalizarJuego(id);
             }
         }
         manejarTurno();
@@ -669,7 +669,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     //funcion para finalizar el juego
-    function finalizarJuego() {
+    function finalizarJuego(perdedor) {
+        let titulo = "";
+        let icono = "";
+        if (perdedor==="enemigo"){
+            titulo = "Ganado";
+            icono = "success";
+        } else{
+            titulo = "Perdido";
+            icono="error";
+        }
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: "btn btn-success",
@@ -678,9 +687,9 @@ document.addEventListener("DOMContentLoaded", function () {
             buttonsStyling: false
         });
         swalWithBootstrapButtons.fire({
-            title: "Has Ganado!",
+            title: `Has ${titulo}`,
             text: "¿Deseas Guardar tu perfil?",
-            icon: "success",
+            icon: `${icono}`,
             showCancelButton: true,
             confirmButtonText: "Si, Guardalo",
             cancelButtonText: "No, Soy imaginario",
