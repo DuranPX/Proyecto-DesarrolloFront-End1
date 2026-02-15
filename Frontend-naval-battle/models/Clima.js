@@ -33,7 +33,7 @@ class Clima {
     }
 
     static async obtenerDatos(lat, lon) {
-        const API_KEY = "bd7a25e175596ad61c1f838c8c8c7ea6"; // no Permutar!!!!!!!!!!!!!!!
+        const API_KEY = ""; // no Permutar!!!!!!!!!!!!!!!
         const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${API_KEY}&units=metric`;
 
         try {
